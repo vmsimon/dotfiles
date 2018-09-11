@@ -78,7 +78,7 @@ function install_homebrew() {
     if hash brew 2>/dev/null; then
         success "Homebrew already exists."
     else
-url=https://raw.githubusercontent.com/Sajjadhosn/dotfiles/master/installers/homebrew_installer
+        url=https://raw.githubusercontent.com/vmsimon/dotfiles/master/installers/homebrew_installer
         if /usr/bin/ruby -e "$(curl -fsSL ${url})"; then
             success "Homebrew installation succeeded."
         else
@@ -142,8 +142,8 @@ function change_shell_to_fish() {
 }
 
 function configure_git() {
-    username="Sajjad Hosseini"
-    email="sajjad.hosseini@futurice.com"
+    username="Volker Meyer-Simon"
+    email="vmsimon@oev.de"
 
     info "Configuring git..."
     if git config --global user.name "$username" && \
@@ -160,7 +160,7 @@ function clone_dotfiles_repo() {
         substep "${DOTFILES_REPO} already exists."
         pull_latest $DOTFILES_REPO
     else
-        url=https://github.com/Sajjadhosn/dotfiles.git
+        url=https://github.com/vmsimon/dotfiles.git
         if git clone "$url" $DOTFILES_REPO; then
             success "Cloned into ${DOTFILES_REPO}"
         else
@@ -341,16 +341,15 @@ function setup_macOS_defaults() {
 
 function update_login_items() {
     info "Updating login items..."
-    login_item /Applications/Alfred\ 3.app
+    #login_item /Applications/Alfred\ 3.app
     login_item /Applications/Amphetamine.app
-    login_item /Applications/Bartender\ 3.app
+    #login_item /Applications/Bartender\ 3.app
     login_item /Applications/Docker.app
-    login_item /Applications/Dropbox.app
+    #login_item /Applications/Dropbox.app
     login_item /Applications/iTerm.app
     login_item /Applications/HighSierraMediaKeyEnabler.app
     login_item /Applications/Spectacle.app
-    login_item /Applications/NordVPN.app
-    login_item /Applications/1Password\ 7.app
+    #login_item /Applications/1Password\ 7.app
     success "Login items successfully updated."
 }
 
