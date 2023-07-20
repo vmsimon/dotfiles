@@ -80,15 +80,17 @@ main() {
 function install_xcode_select() {
     info "Install Command Line Tools for Xcode"
     xcode-select --install
-    info "Press any key after Command line tool install is finished"
-    while [ true ] ; do
-      read -t 5 -n 1
-      if [ $? = 0 ] ; then
-        exit ;
-      else
-        info "Press any key after Command line tool install is finished"
-      fi
-    done
+    if [ $? != 0 ] ; then
+      info "Press any key after Command line Tool install has finished"
+      while [ true ] ; do
+        read -t 5 -n 1
+        if [ $? = 0 ] ; then
+          exit ;
+        else
+          info "Press any key after Command line tool install has finished"
+        fi
+      done
+    fi
 }
 
 function ask_for_sudo() {
