@@ -78,8 +78,15 @@ main() {
 }
 
 function install_xcode_select() {
-    info "Checking Command Line Tools for Xcode"
+    info "Install Command Line Tools for Xcode"
     xcode-select --install
+    info "Press any key after Command line tool install is finished"
+    while [ true ] ; do
+      read -t 5 -n 1
+      if [ $? = 0 ] ; then
+        exit ;
+      fi
+    done
 }
 
 function ask_for_sudo() {
@@ -114,7 +121,7 @@ function install_homebrew() {
     if hash brew 2>/dev/null; then
         success "Homebrew already exists."
     else
-        url=https://raw.githubusercontent.com/Homebrew/install/master/install.sh
+        url=https://raw.githubusercontent.com/vmsimon/dotfiles/master/installers/homebrew_installer
         if /usr/bin/ruby -e "$(curl -fsSL ${url})"; then
             success "Homebrew installation succeeded."
         else
