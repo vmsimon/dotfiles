@@ -79,13 +79,7 @@ main() {
 
 function install_xcode_select() {
     info "Checking Command Line Tools for Xcode"
-    # Only run if the tools are not installed yet
-    # To check that try to print the SDK path
-    if /usr/bin/ruby -e "xcode-select --install > /dev/null 2>&1"; then
-      success "Command Line Tools installed"
-    else
-        info "Command Line Tools are already installed!"
-    fi
+    xcode-select --install
 }
 
 function ask_for_sudo() {
