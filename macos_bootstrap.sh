@@ -79,7 +79,7 @@ main() {
 
 function install_xcode_select() {
     info "Install Command Line Tools for Xcode"
-    if hash gcc 2>/dev/null: then
+    if hash gcc 2>/dev/null; then
       sucess "Command Line Tools already installed"
     else
       until (xcode-select --install);
