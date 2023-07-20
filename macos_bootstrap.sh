@@ -81,15 +81,20 @@ function install_xcode_select() {
     info "Checking Command Line Tools for Xcode"
     # Only run if the tools are not installed yet
     # To check that try to print the SDK path
-    xcode-select -p &> /dev/null
-    if [ $? -ne 0 ]; then
-      info "Command Line Tools for Xcode not found. Installing from softwareupdate…"
-    # This temporary file prompts the 'softwareupdate' utility to list the Command Line Tools
-      touch /tmp/.com.apple.dt.CommandLineTools.installondemand.in-progress;
-      PROD=$(softwareupdate -l | grep "\*.*Command Line" | tail -n 1 | sed 's/^[^C]* //')
-      softwareupdate -i "$PROD" --verbose;
+    xcode-select --install > /dev/null 2>&1
+    if [ 0 == $? ]; then
+        sleep 1
+        osascript <<EOD
+tell application "System Events"
+    tell process "Install Command Line Developer Tools"
+        keystroke return
+        click button "Agree" of window "License Agreement"
+    end tell
+end tell
+EOD
+      success "Command Line Tools installed"
     else
-      info "Command Line Tools for Xcode have been installed."
+        info "Command Line Tools are already installed!"
     fi
 }
 
