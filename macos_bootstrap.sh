@@ -79,7 +79,7 @@ main() {
 
 function install_xcode_select() {
     info "Install Command Line Tools for Xcode"
-    xcode-select --install
+    xcode-select --install 2>/dev/null
     if [ $? != 0 ] ; then
       info "Press any key after Command line Tool install has finished"
       while [ true ] ; do
