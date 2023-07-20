@@ -85,6 +85,8 @@ function install_xcode_select() {
       read -t 5 -n 1
       if [ $? = 0 ] ; then
         exit ;
+      else
+        info "Press any key after Command line tool install is finished"
       fi
     done
 }
