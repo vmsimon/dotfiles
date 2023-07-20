@@ -20,13 +20,15 @@ IFS=$'\n\t'
 main() {
     info "macOS bootstrapping start"
 
-    # https://docs.brew.sh/Installation#macos-requirements
-    xcode-select --install
     # `set -eu` causes an 'unbound variable' error in case SUDO_USER is not set
     SUDO_USER=$(whoami)
 
     # First things first, asking for sudo credentials
     ask_for_sudo
+
+    # https://docs.brew.sh/Installation#macos-requirements
+    install_xcode_select
+
     # Installing Homebrew, the basis of anything and everything
     install_homebrew
     # Installing mas using brew as the requirement for login_to_app_store
@@ -73,6 +75,22 @@ main() {
 
     info "macOS bootstrapping done"
 
+}
+
+function install_xcode_select() {
+    info "Checking Command Line Tools for Xcode"
+    # Only run if the tools are not installed yet
+    # To check that try to print the SDK path
+    xcode-select -p &> /dev/null
+    if [ $? -ne 0 ]; then
+      info "Command Line Tools for Xcode not found. Installing from softwareupdate…"
+    # This temporary file prompts the 'softwareupdate' utility to list the Command Line Tools
+      touch /tmp/.com.apple.dt.CommandLineTools.installondemand.in-progress;
+      PROD=$(softwareupdate -l | grep "\*.*Command Line" | tail -n 1 | sed 's/^[^C]* //')
+      softwareupdate -i "$PROD" --verbose;
+    else
+      info "Command Line Tools for Xcode have been installed."
+    fi
 }
 
 function ask_for_sudo() {
