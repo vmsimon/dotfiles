@@ -81,17 +81,7 @@ function install_xcode_select() {
     info "Checking Command Line Tools for Xcode"
     # Only run if the tools are not installed yet
     # To check that try to print the SDK path
-    xcode-select --install > /dev/null 2>&1
-    if [ 0 == $? ]; then
-        sleep 1
-        osascript <<EOD
-tell application "System Events"
-    tell process "Install Command Line Developer Tools"
-        keystroke return
-        click button "Agree" of window "License Agreement"
-    end tell
-end tell
-EOD
+    if /usr/bin/ruby -e "xcode-select --install > /dev/null 2>&1"; then
       success "Command Line Tools installed"
     else
         info "Command Line Tools are already installed!"
