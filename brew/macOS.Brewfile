@@ -124,6 +124,8 @@ cask "browserosaurus"
 cask "clipy"
 #Terminal emulator as alternative to Apple's Terminal app
 cask "iterm2"
+#JetBrains tools manager
+cask "jetbrains-toolbox"
 # Kubernetes IDE
 cask "lens"
 # Visual tool to design, develop and administer MySQL servers
