@@ -114,6 +114,8 @@ brew "antigen"
 cask_args appdir: "~/Applications", require_sha: true
 
 ##################### cask #####################
+# The 1Password password manager
+cask "1password"
 # Command-line helper for the 1Password password manager
 cask "1password-cli"
 # Eclipse-based LDAP browser and directory client

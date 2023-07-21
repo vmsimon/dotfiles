@@ -172,6 +172,13 @@ function pull_latest() {
     fi
 }
 
+function update_login_items() {
+    info "Updating login items..."
+    login_item /Applications/iTerm.app
+    login_item /Applications/Spectacle.app
+    login_item /Applications/1Password.app
+    success "Login items successfully updated."
+}
 function login_item() {
     path=$1
     hidden=${2:-false}
