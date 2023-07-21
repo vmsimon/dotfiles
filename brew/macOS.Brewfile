@@ -2,65 +2,139 @@
 
 ##################### taps #####################
 # needed tap's
+tap "1password/tap"
+tap "atlassian/tap"
+tap "aws/tap"
+tap "derailed/k9s"
+tap "derailed/popeye"
+tap "hashicorp/tap"
+tap "homebrew/bundle"
 tap "homebrew/cask"
 tap "homebrew/cask-fonts"
+tap "homebrew/cask-versions"
 tap "homebrew/core"
-tap "homebrew/services" # Integrates Homebrew formulae with macOS' launchctl manager.
-tap "1password/tap" # 1Password-CLI - https://developer.1password.com/docs/cli/shell-plugins/homebrew/
-tap "derailed/k9s" # Kubernetes CLI To Manage Your Clusters In Style!
-tap "derailed/popeye" # Popeye - A Kubernetes Cluster Sanitizer
+tap "homebrew/services"
+tap "peak/tap/"
 
 
 ##################### brew #####################
-brew "coreutils" # for awesome commands like timeout
-brew "zsh" # UNIX shell (command interpreter)
-brew "git" # a free and open source distributed version control system
-
-brew "httpie" # CLI HTTP client
-#brew "m-cli" # Swiss Army Knife for macOS
-
-brew "trash" # a small command-line program for OS X that moves files or folders to the trash
-brew "tree" # a recursive directory listing command
-brew "vim" # the ubiquitous text editor
-brew "wget" # a free software package for retrieving files
-
-
-#brew "wifi-password" # CLI for Get the password of the wifi you're on, from the Keychain
-#brew "z" # jump aroound - Tracks your most used directories, based on 'frecency'.
-
-brew "watch"
-brew "k9s"
-brew "popeye"
-brew "pwgen"
-brew "htop"
-
-brew "kubernetes-cli"
+# Programmable completion for Bash 4.2+
+brew "bash-completion@2"
+# Clone of cat(1) with syntax highlighting and Git integration
+brew "bat"
+# Get a file from an HTTP, HTTPS or FTP server
+brew "curl"
+# Tool for exploring each layer in a docker image
+brew "dive"
+# Pack, ship and run any application as a lightweight container
+brew "docker"
+# Isolated development environments using Docker
+brew "docker-compose"
+# Platform keystore credential helper for Docker
+brew "docker-credential-helper"
+# Minify and secure Docker images
+brew "docker-slim"
+# Modern replacement for 'ls'
+brew "exa"
+# Perl lib for reading and writing EXIF metadata
+brew "exiftool"
+# Collection of GNU find, xargs, and locate
+brew "findutils"
+# Command-line fuzzy finder written in Go
+brew "fzf"
+# Distributed revision control system
+brew "git"
+# Enable transparent encryption/decryption of files in a git repo
+brew "git-crypt"
+# Syntax-highlighting pager for git and diff output
+brew "git-delta"
+# Extensions to follow Vincent Driessen's branching model
+brew "git-flow"
+# Git extension for versioning large files
+brew "git-lfs"
+# Blazing fast terminal-ui for git written in rust
+brew "gitui"
+# Kubernetes package manager
 brew "helm"
+# Deploy Kubernetes Helm Charts
 brew "helmfile"
+# Improved top (interactive process viewer)
+brew "htop"
+# User-friendly cURL replacement (command-line HTTP client)
+brew "httpie"
+# Kubernetes command-line interface
+brew "kubernetes-cli"
+# Package manager for kubectl plugins
+brew "krew"
+# Lazier way to manage everything docker
+brew "lazydocker"
+# Mac App Store command-line interface
+brew "mas"
+# Kubernetes introspection tool for developers
+brew "octant"
+# Password generator
+brew "pwgen"
+# 7-Zip is a file archiver with a high compression ratio
+brew "sevenzip"
+# Editor of encrypted files
+brew "sops"
+# SSL scanner
+brew "sslyze"
+# Cross-shell prompt for astronauts
+brew "starship"
+# Crypto and x509 Swiss-Army-Knife
+brew "step"
+# Tail multiple Kubernetes pods & their containers
 brew "stern"
-brew "s5cmd"
+# Display directories as trees (with optional color/HTML output)
+brew "tree"
+# Executes a program periodically, showing output fullscreen
+brew "watch"
+# Internet file retriever
+brew "wget"
+# Additional completion definitions for zsh
+brew "zsh-completions"
+# Kubernetes CLI To Manage Your Clusters In Style!
+brew "derailed/k9s/k9s"
+# A Kubernetes Cluster sanitizer and linter.
+brew "derailed/popeye/popeye"
+# Parallel S3 and local filesystem execution tool
+brew "peak/tap/s5cmd"
+
 
 # set arguments for all 'brew install --cask' commands
 cask_args appdir: "~/Applications", require_sha: true
 
 ##################### cask #####################
-cask "firefox"
-cask "google-chrome"
-cask "iterm2"
-cask "1password"
+# Command-line helper for the 1Password password manager
 cask "1password-cli"
-cask "wireshark"
-cask "xca"
-cask "textmate"
-cask "font-fira-mono-for-powerline" # for iTerm2 powerline
-cask "postman"
-cask "clipy"
-cask "rectangle" # Move and resize windows on MacOS X with ease
-cask "browserosaurus"
-cask "lens"
-cask "slack"
+# Eclipse-based LDAP browser and directory client
 cask "apache-directory-studio"
+# Open-source browser prompter
+cask "browserosaurus"
+# Clipboard extension app
+cask "clipy"
+#Terminal emulator as alternative to Apple's Terminal app
+cask "iterm2"
+# Kubernetes IDE
+cask "lens"
+# Visual tool to design, develop and administer MySQL servers
 cask "mysqlworkbench"
+# Porting tool, to make Windows programs/games into native apps
+cask "portingkit"
+# Collaboration platform for API development
+cask "postman"
+# Move and resize windows using keyboard shortcuts or snap areas
+cask "rectangle"
+# Team communication and collaboration software
+cask "slack"
+# General-purpose text editor
+cask "textmate"
+# Network protocol analyzer
+cask "wireshark"
+# X Certificate and Key management
+cask "xca"
+
 
 ##################### mas #####################
 

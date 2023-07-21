@@ -82,7 +82,7 @@ function install_xcode_select() {
     if hash gcc 2>/dev/null; then
       sucess "Command Line Tools already installed"
     else
-      until (xcode-select --install);
+      until (sh xcode-select --install);
       do
         sleep 3
       done
