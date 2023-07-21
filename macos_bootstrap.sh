@@ -124,7 +124,7 @@ function brew_install() {
     fi
 }
 
-function brew_cleanuo() {
+function brew_cleanup() {
     info "brew cleanup"
     if brew cleanup; then
         success "Cleanup succeeded."
