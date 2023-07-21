@@ -26,25 +26,16 @@ main() {
     # First things first, asking for sudo credentials
     ask_for_sudo
 
-    # https://docs.brew.sh/Installation#macos-requirements
-    install_xcode_select
-
     # Installing Homebrew, the basis of anything and everything
     install_homebrew
-    # Installing mas using brew as the requirement for login_to_app_store
-    brew_install mas
-    # Ensuring the user is logged in the App Store so that
-    # install_packages_with_brewfile can install App Store applications
-    # using mas cli application
-    login_to_app_store
 
     # Cloning Dotfiles repository for install_packages_with_brewfile
     # to have access to Brewfile
-    #clone_dotfiles_repo
+    clone_dotfiles_repo
+
     # Installing all packages in Dotfiles repository's Brewfile
     install_packages_with_brewfile
-    # Changing default shell to Fish
-    change_shell_to_fish
+
     # Configuring git config file
     configure_git
 
@@ -77,18 +68,7 @@ main() {
 
 }
 
-function install_xcode_select() {
-    info "Install Command Line Tools for Xcode"
-    if hash gcc 2>/dev/null; then
-      sucess "Command Line Tools already installed"
-    else
-      until (sh xcode-select --install);
-      do
-        sleep 3
-      done
-      sucess "Command Line Tools installed"
-    fi
-}
+DOTFILES_REPO=~/.dotfiles
 
 function ask_for_sudo() {
     info "Prompting for sudo password..."
@@ -103,27 +83,14 @@ function ask_for_sudo() {
     fi
 }
 
-function login_to_app_store() {
-    info "Logging into app store..."
-    if mas account >/dev/null; then
-        success "Already logged in."
-    else
-        open -a "/Applications/App Store.app"
-        until (mas account > /dev/null);
-        do
-            sleep 3
-        done
-        success "Login to app store successful."
-    fi
-}
-
 function install_homebrew() {
     info "Installing Homebrew..."
     if hash brew 2>/dev/null; then
         success "Homebrew already exists."
     else
-        url=https://raw.githubusercontent.com/vmsimon/dotfiles/master/installers/homebrew_installer
-        if /usr/bin/ruby -e "$(curl -fsSL ${url})"; then
+        # /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+        url=https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh
+        if /bin/bash -c "$(curl -fsSL ${url})"; then
             success "Homebrew installation succeeded."
         else
             error "Homebrew installation failed."
@@ -133,8 +100,8 @@ function install_homebrew() {
 }
 
 function install_packages_with_brewfile() {
-    info "Installing packages within ./brew/macOS.Brewfile ..."
-    if brew bundle --file=./brew/macOS.Brewfile; then
+    info "Installing packages within ./dotfiles/brew/macOS.Brewfile ..."
+    if brew bundle --file=./dotfiles/brew/macOS.Brewfile; then
         success "Brewfile installation succeeded."
     else
         error "Brewfile installation failed."
@@ -180,6 +147,31 @@ function configure_git() {
     fi
 }
 
+function clone_dotfiles_repo() {
+    info "Cloning dotfiles repository into ${DOTFILES_REPO} ..."
+    if test -e $DOTFILES_REPO; then
+        substep "${DOTFILES_REPO} already exists."
+        pull_latest $DOTFILES_REPO
+    else
+        url=https://github.com/vmsimon/dotfiles.git
+        if git clone "$url" $DOTFILES_REPO; then
+            success "Cloned into ${DOTFILES_REPO}"
+        else
+            error "Cloning into ${DOTFILES_REPO} failed."
+            exit 1
+        fi
+    fi
+}
+
+function pull_latest() {
+    info "Pulling latest changes in ${1} repository..."
+    if git -C $1 pull origin master &> /dev/null; then
+        success "Pull successful in ${1} repository."
+    else
+        error "Please pull the latest changes in ${1} repository manually."
+    fi
+}
+
 function login_item() {
     path=$1
     hidden=${2:-false}
@@ -190,12 +182,12 @@ function login_item() {
 tell application "System Events" to make login item with properties ¬
 {name: "$name", path: "$path", hidden: "$hidden"}
 EOM
-then
-    success "Login item ${name} successfully added."
-else
-    error "Adding login item ${name} failed."
-    exit 1
-fi
+    then
+        success "Login item ${name} successfully added."
+    else
+        error "Adding login item ${name} failed."
+        exit 1
+    fi
 }
 
 function coloredEcho() {
