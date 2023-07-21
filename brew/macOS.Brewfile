@@ -14,7 +14,7 @@ tap "homebrew/cask-fonts"
 tap "homebrew/cask-versions"
 tap "homebrew/core"
 tap "homebrew/services"
-tap "peak/tap/"
+tap "peak/tap"
 
 
 ##################### brew #####################
