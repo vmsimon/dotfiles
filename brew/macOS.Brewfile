@@ -121,7 +121,7 @@ cask "lens"
 # Visual tool to design, develop and administer MySQL servers
 cask "mysqlworkbench"
 # Porting tool, to make Windows programs/games into native apps
-cask "portingkit"
+cask "porting-kit"
 # Collaboration platform for API development
 cask "postman"
 # Move and resize windows using keyboard shortcuts or snap areas
