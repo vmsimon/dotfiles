@@ -109,15 +109,13 @@ brew "zsh"
 # Plugin manager for zsh, inspired by oh-my-zsh and vundle
 brew "antigen"
 
-
-# set arguments for all 'brew install --cask' commands
-cask_args appdir: "~/Applications", require_sha: true
-
 ##################### cask #####################
 # The 1Password password manager
 cask "1password"
 # Command-line helper for the 1Password password manager
 cask "1password-cli"
+#Uninstaller and cleaning assistant
+cask app-cleaner
 # Eclipse-based LDAP browser and directory client
 cask "apache-directory-studio"
 # Open-source browser prompter
