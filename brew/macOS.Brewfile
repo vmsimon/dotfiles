@@ -15,6 +15,7 @@ tap "homebrew/cask-versions"
 tap "homebrew/core"
 tap "homebrew/services"
 tap "peak/tap"
+tap "sdkman/tap"
 
 
 ##################### brew #####################
@@ -74,6 +75,8 @@ brew "mas"
 brew "octant"
 # Password generator
 brew "pwgen"
+# A Homebrew tap containing the Formula for the SDKMAN! CLI.
+brew "sdkman-cli"
 # 7-Zip is a file archiver with a high compression ratio
 brew "sevenzip"
 # Editor of encrypted files
