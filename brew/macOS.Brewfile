@@ -115,7 +115,7 @@ cask "1password"
 # Command-line helper for the 1Password password manager
 cask "1password-cli"
 #Uninstaller and cleaning assistant
-cask app-cleaner
+cask "app-cleaner"
 # Eclipse-based LDAP browser and directory client
 cask "apache-directory-studio"
 # Open-source browser prompter
