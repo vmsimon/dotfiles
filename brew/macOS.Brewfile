@@ -102,10 +102,6 @@ brew "derailed/k9s/k9s"
 brew "derailed/popeye/popeye"
 # Parallel S3 and local filesystem execution tool
 brew "peak/tap/s5cmd"
-#Fish-like fast/unobtrusive autosuggestions for zsh
-brew "zsh-autosuggestions"
-#Fish shell like syntax highlighting for zsh
-brew "zsh-syntax-highlighting"
 # UNIX shell (command interpreter)
 brew "zsh"
 # Plugin manager for zsh, inspired by oh-my-zsh and vundle
