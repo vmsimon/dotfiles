@@ -16,6 +16,8 @@ tap "peak/tap"
 tap "sdkman/tap"
 
 ##################### brew #####################
+# Shell extension to jump to frequently used directories
+brew "autojump"
 # Programmable completion for Bash 4.2+
 brew "bash-completion@2"
 # Clone of cat(1) with syntax highlighting and Git integration
