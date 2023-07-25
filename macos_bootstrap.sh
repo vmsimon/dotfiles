@@ -205,7 +205,7 @@ function setup_symlinks() {
     info "Setting up symlinks..."
     symlink "zsh" ${DOTFILES_REPO}/zsh/zshrc ~/.zshrc
     symlink "tmux" ${DOTFILES_REPO}/tmux/tmux.conf ~/.tmux.conf
-    symlink "powerline10k" ${DOTFILES_REPO}/p10k.zsh ~/.p10k.zsh
+    symlink "powerline10k" ${DOTFILES_REPO}/p10k/p10k.zsh ~/.p10k.zsh
     #symlink "spectacle" \
     # the above line should be commented out and used instead of the "cp" below
     # when Spectacle fixes the sorting issue of Shortcuts.json file
