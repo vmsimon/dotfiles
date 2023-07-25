@@ -47,8 +47,10 @@ main() {
     # and prettier so that Neoformat can auto-format files
     #yarn_packages=(prettier typescript)
     #yarn_install "${yarn_packages[@]}"
-    # Setting up symlinks so that setup_vim can install all plugins
-    #setup_symlinks
+
+    # Setting up symlinks so that we can use all plugins
+    setup_symlinks
+
     # Setting up Vim
     #setup_vim
     # Setting up tmux
