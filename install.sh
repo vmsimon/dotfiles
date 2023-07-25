@@ -11,7 +11,7 @@ IFS=$'\n\t'
 # PRECONDITIONS
 # 1)
 # make sure the file is executable
-# chmod +x macos_bootstrap.sh
+# chmod +x install.sh
 #
 # 2)
 # Your password may be necessary for some packages
