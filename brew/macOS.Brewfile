@@ -16,7 +16,7 @@ tap "homebrew/core"
 tap "homebrew/services"
 tap "peak/tap"
 tap "sdkman/tap"
-
+tap "romkatv/powerlevel10k"
 
 ##################### brew #####################
 # Programmable completion for Bash 4.2+
@@ -91,6 +91,8 @@ brew "step"
 brew "stern"
 # Display directories as trees (with optional color/HTML output)
 brew "tree"
+# Terminal multiplexer
+brew "tmux"
 # Executes a program periodically, showing output fullscreen
 brew "watch"
 # Internet file retriever
@@ -111,8 +113,14 @@ brew "zsh-syntax-highlighting"
 brew "zsh"
 # Plugin manager for zsh, inspired by oh-my-zsh and vundle
 brew "antigen"
+# Powerlevel10k a theme for Zsh
+brew romkatv/powerlevel10k/powerlevel10k
 
 ##################### cask #####################
+# Firefox WebBrowser
+cask "firefox"
+# Google Chrome Webbrowser
+cask "google-chrome"
 # The 1Password password manager
 cask "1password"
 # Command-line helper for the 1Password password manager

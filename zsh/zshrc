@@ -1,0 +1,35 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+source $(brew --prefix)/share/antigen/antigen.zsh
+
+# Load the oh-my-zsh's library.
+antigen use oh-my-zsh
+
+# Load bundles from external repos
+antigen bundles <<EOBUNDLES
+    zsh-users/zsh-autosuggestions
+    zsh-users/zsh-syntax-highlighting
+    zsh-users/zsh-completions
+    softmoth/zsh-vim-mode
+    autojump
+    git
+    arzzen/calc.plugin.zsh
+EOBUNDLES
+
+#antigen theme robbyrussell
+antigen theme romkatv/powerlevel10k
+
+# 3. Commit Antigen Configuration
+antigen apply
+
+#1Passwort SSH-Agent INtegration
+# https://developer.1password.com/docs/ssh/get-started#step-4-configure-your-ssh-or-git-client
+export SSH_AUTH_SOCK=~/.1password/agent.sock
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

@@ -197,6 +197,40 @@ EOM
     fi
 }
 
+function setup_symlinks() {
+    POWERLINE_ROOT_REPO=/usr/local/lib/python2.7/site-packages
+
+    info "Setting up symlinks..."
+    symlink "zsh" ${DOTFILES_REPO}/zsh/zshrc ~/.zshrc
+    symlink "tmux" ${DOTFILES_REPO}/tmux/tmux.conf ~/.tmux.conf
+    symlink "powerline10k" ${DOTFILES_REPO}/p10k ~/.p10k.zsh
+    #symlink "spectacle" \
+    # the above line should be commented out and used instead of the "cp" below
+    # when Spectacle fixes the sorting issue of Shortcuts.json file
+    #cp \
+    #    ${DOTFILES_REPO}/spectacle/Shortcuts.json \
+    #    ~/Library/Application\ Support/Spectacle/Shortcuts.json
+    success "Symlinks successfully setup."
+}
+
+function symlink() {
+    application=$1
+    point_to=$2
+    destination=$3
+    destination_dir=$(dirname "$destination")
+
+    if test ! -e "$destination_dir"; then
+        substep "Creating ${destination_dir}"
+        mkdir -p "$destination_dir"
+    fi
+    if rm -rf "$destination" && ln -s "$point_to" "$destination"; then
+        success "Symlinking ${application} done."
+    else
+        error "Symlinking ${application} failed."
+        exit 1
+    fi
+}
+
 function coloredEcho() {
     local exp="$1";
     local color="$2";
