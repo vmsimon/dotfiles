@@ -94,8 +94,6 @@ brew "tmux"
 brew "watch"
 # Internet file retriever
 brew "wget"
-# Additional completion definitions for zsh
-brew "zsh-completions"
 # Kubernetes CLI To Manage Your Clusters In Style!
 brew "derailed/k9s/k9s"
 # A Kubernetes Cluster sanitizer and linter.
