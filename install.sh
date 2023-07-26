@@ -139,8 +139,8 @@ function brew_cleanup() {
 }
 
 function sdk_install() {
-    ZSH_VERSION="$(echo $ZSH_VERSION)"
-    BASH_VERSION="$(echo $BASH_VERSION)"
+    export ZSH_VERSION="$(echo $ZSH_VERSION)"
+    export BASH_VERSION="$(echo $BASH_VERSION)"
     SDKMAN_DIR=$(brew --prefix sdkman-cli)/libexec
     [[ -s "${SDKMAN_DIR}/bin/sdkman-init.sh" ]] && source "${SDKMAN_DIR}/bin/sdkman-init.sh"
     while read -r package_to_install; do
