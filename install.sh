@@ -63,6 +63,8 @@ main() {
     #setup_macOS_defaults
     # Updating login items
     #update_login_items
+    # install Java SDK's with sdkman
+    sdk_install
 
     brew_cleanup
 
@@ -136,6 +138,16 @@ function brew_cleanup() {
     fi
 }
 
+function sdk_install() {
+    while read -r package_to_install; do
+      [[ $package_to_install = \#* ]] && continue
+      info "sdk install $package_to_install"
+    sdk install $package_to_install << EOM
+n
+EOM
+    done < $DOTFILES_REPO/sdkman/sdk.install
+}
+
 function configure_git() {
     username="Volker Meyer-Simon"
     email="vmsimon@oev.de"
@@ -206,12 +218,6 @@ function setup_symlinks() {
     symlink "zsh" ${DOTFILES_REPO}/zsh/zshrc ~/.zshrc
     symlink "tmux" ${DOTFILES_REPO}/tmux/tmux.conf ~/.tmux.conf
     symlink "powerline10k" ${DOTFILES_REPO}/p10k/p10k.zsh ~/.p10k.zsh
-    #symlink "spectacle" \
-    # the above line should be commented out and used instead of the "cp" below
-    # when Spectacle fixes the sorting issue of Shortcuts.json file
-    #cp \
-    #    ${DOTFILES_REPO}/spectacle/Shortcuts.json \
-    #    ~/Library/Application\ Support/Spectacle/Shortcuts.json
     success "Symlinks successfully setup."
 }
 
