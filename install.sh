@@ -139,10 +139,7 @@ function brew_cleanup() {
 }
 
 function sdk_install() {
-    ZSH_VERSION=${1:-}
-    BASH_VERSION=${1:-}
-    sdkman_curl_retry=${1:-}
-    SDKMAN_DIR=$(brew --prefix sdkman-cli)/libexec
+    set -eo pipefail
     [[ -s "${SDKMAN_DIR}/bin/sdkman-init.sh" ]] && source "${SDKMAN_DIR}/bin/sdkman-init.sh"
     while read -r package_to_install; do
       [[ $package_to_install = \#* ]] && continue
@@ -151,6 +148,7 @@ function sdk_install() {
 n
 EOM
     done < $DOTFILES_REPO/sdkman/sdk.install
+    set -euo pipefail
 }
 
 function configure_git() {
