@@ -139,10 +139,7 @@ function brew_cleanup() {
 }
 
 function sdk_install() {
-    # SDKMAN-CLI integration
-    # https://github.com/sdkman/homebrew-tap
-    SDKMAN_DIR=$(brew --prefix sdkman-cli)/libexec
-    [[ -s "$SDKMAN_DIR/bin/sdkman-init.sh" ]] && source "$SDKMAN_DIR/bin/sdkman-init.sh"
+    exec $SHELL
     while read -r package_to_install; do
       [[ $package_to_install = \#* ]] && continue
       info "sdk install $package_to_install"
