@@ -259,7 +259,7 @@ function coloredEcho() {
 }
 
 function info() {
-    coloredEcho "$1" blue "========>"
+    coloredEcho "$1" green "========>"
 }
 
 function substep() {
@@ -267,7 +267,7 @@ function substep() {
 }
 
 function success() {
-    coloredEcho "$1" green "========>"
+    coloredEcho "$1" blue "========>"
 }
 
 function error() {
