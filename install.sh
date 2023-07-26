@@ -139,7 +139,9 @@ function brew_cleanup() {
 }
 
 function sdk_install() {
-      bash "$DOTFILES_REPO/sdkman/sdk.install"
+    info "Installing Java SDK's within .dotfiles/sdkman/sdk.install ..."
+    bash "$DOTFILES_REPO/sdkman/sdk.install"
+    info "Finish installing Java SDK's - Take a look at https://sdkman.io/usage"
 }
 
 function configure_git() {
