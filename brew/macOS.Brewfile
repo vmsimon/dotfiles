@@ -5,8 +5,6 @@
 tap "1password/tap"
 tap "atlassian/tap"
 tap "aws/tap"
-tap "derailed/k9s"
-tap "derailed/popeye"
 tap "hashicorp/tap"
 tap "homebrew/cask-fonts"
 tap "homebrew/cask-versions"
@@ -67,14 +65,8 @@ brew "kubernetes-cli"
 brew "krew"
 # Lazier way to manage everything docker
 brew "lazydocker"
-# Mac App Store command-line interface
-brew "mas"
-# Kubernetes introspection tool for developers
-brew "octant"
 # Password generator
 brew "pwgen"
-# A Homebrew tap containing the Formula for the SDKMAN! CLI.
-brew "sdkman-cli"
 # 7-Zip is a file archiver with a high compression ratio
 brew "sevenzip"
 # Editor of encrypted files
@@ -82,7 +74,7 @@ brew "sops"
 # SSL scanner
 brew "sslyze"
 # Cross-shell prompt for astronauts
-brew "starship"
+# brew "starship"
 # Crypto and x509 Swiss-Army-Knife
 brew "step"
 # Tail multiple Kubernetes pods & their containers
@@ -95,16 +87,20 @@ brew "tmux"
 brew "watch"
 # Internet file retriever
 brew "wget"
-# Kubernetes CLI To Manage Your Clusters In Style!
-brew "derailed/k9s/k9s"
-# A Kubernetes Cluster sanitizer and linter.
-brew "derailed/popeye/popeye"
-# Parallel S3 and local filesystem execution tool
-brew "peak/tap/s5cmd"
 # UNIX shell (command interpreter)
 brew "zsh"
 # Plugin manager for zsh, inspired by oh-my-zsh and vundle
 brew "antigen"
+# Kubernetes CLI To Manage Your Clusters In Style!
+brew "k9s"
+# A Kubernetes Cluster sanitizer and linter.
+brew "popeye"
+
+## Other Tap's
+# A Homebrew tap containing the Formula for the SDKMAN! CLI.
+brew "sdkman/tap/sdkman-cli"
+# Parallel S3 and local filesystem execution tool
+brew "peak/tap/s5cmd"
 
 
 ##################### cask #####################
