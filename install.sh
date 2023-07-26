@@ -139,18 +139,14 @@ function brew_cleanup() {
 }
 
 function sdk_install() {
-    SDKMAN_DIR=$(brew --prefix sdkman-cli)/libexec
-    sdkman_curl_retry=0
-    [[ -s "${SDKMAN_DIR}/bin/sdkman-init.sh" ]] && sed -i.bak 's/$ZSH_VERSION/${ZSH_VERSION+x}/' "${SDKMAN_DIR}/bin/sdkman-init.sh"
-    [[ -s "${SDKMAN_DIR}/bin/sdkman-init.sh" ]] && source "${SDKMAN_DIR}/bin/sdkman-init.sh"
     while read -r package_to_install; do
       [[ $package_to_install = \#* ]] && continue
       info "sdk install ${package_to_install}"
-      sdk install $package_to_install << EOM
+      bash -c "sdk install $package_to_install << EOM
 n
 EOM
-    done < $DOTFILES_REPO/sdkman/sdk.install
-    set -euo pipefail
+"
+   done < $DOTFILES_REPO/sdkman/sdk.install
 }
 
 function configure_git() {
