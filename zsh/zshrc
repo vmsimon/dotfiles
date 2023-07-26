@@ -27,10 +27,16 @@ antigen theme romkatv/powerlevel10k
 # 3. Commit Antigen Configuration
 antigen apply
 
-#1Passwort SSH-Agent INtegration
+# 1Passwort SSH-Agent integration
 # https://developer.1password.com/docs/ssh/get-started#step-4-configure-your-ssh-or-git-client
 export SSH_AUTH_SOCK=~/.1password/agent.sock
 
+# SDKMAN-CLI integration
+# https://github.com/sdkman/homebrew-tap
+export SDKMAN_DIR=$(brew --prefix sdkman-cli)/libexec
+[[ -s "${SDKMAN_DIR}/bin/sdkman-init.sh" ]] && source "${SDKMAN_DIR}/bin/sdkman-init.sh"
+
+# fzf git integration
 # https://github.com/junegunn/fzf-git.sh
 [[ ! -f ~/.dotfiles/fzf/fzf-git.sh ]] || source ~/.dotfiles/fzf/fzf-git.sh
 
