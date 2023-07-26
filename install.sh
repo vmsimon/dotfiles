@@ -222,7 +222,6 @@ function setup_symlinks() {
     symlink "zsh" ${DOTFILES_REPO}/zsh/zshrc ~/.zshrc
     symlink "tmux" ${DOTFILES_REPO}/tmux/tmux.conf ~/.tmux.conf
     symlink "powerline10k" ${DOTFILES_REPO}/p10k/p10k.zsh ~/.p10k.zsh
-    omz reload &> /dev/null
     success "Symlinks successfully setup."
 }
 
