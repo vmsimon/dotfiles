@@ -139,10 +139,10 @@ function brew_cleanup() {
 }
 
 function sdk_install() {
-    . "$(brew --prefix sdkman-cli)/libexec/bin/sdkman-init.sh"
+    . $(brew --prefix sdkman-cli)/libexec/bin/sdkman-init.sh
     while read -r package_to_install; do
       [[ $package_to_install = \#* ]] && continue
-      info "sdk install $package_to_install"
+      info "sdk install ${package_to_install}"
       sdk install $package_to_install << EOM
 n
 EOM
