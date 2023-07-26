@@ -139,7 +139,7 @@ function brew_cleanup() {
 }
 
 function sdk_install() {
-    set -eo pipefail
+    unset -euo pipefail
     [[ -s "${SDKMAN_DIR}/bin/sdkman-init.sh" ]] && source "${SDKMAN_DIR}/bin/sdkman-init.sh"
     while read -r package_to_install; do
       [[ $package_to_install = \#* ]] && continue
