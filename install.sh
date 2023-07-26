@@ -139,7 +139,7 @@ function brew_cleanup() {
 }
 
 function sdk_install() {
-      bash -c "$DOTFILES_REPO/sdkman/sdk.install"
+      bash "$DOTFILES_REPO/sdkman/sdk.install"
 }
 
 function configure_git() {
