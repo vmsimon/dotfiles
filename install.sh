@@ -139,14 +139,7 @@ function brew_cleanup() {
 }
 
 function sdk_install() {
-    while read -r package_to_install; do
-      [[ $package_to_install = \#* ]] && continue
-      info "sdk install ${package_to_install}"
-      bash -c "sdk install $package_to_install << EOM
-n
-EOM
-"
-   done < $DOTFILES_REPO/sdkman/sdk.install
+      bash -c "$DOTFILES_REPO/sdkman/sdk.install"
 }
 
 function configure_git() {

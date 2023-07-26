@@ -1,3 +1,8 @@
-8.0.382-tem
-11.0.20-tem
-17.0.8-tem
+#!/bin/bash
+
+export SDKMAN_DIR=$(brew --prefix sdkman-cli)/libexec
+[[ -s "${SDKMAN_DIR}/bin/sdkman-init.sh" ]] && source "${SDKMAN_DIR}/bin/sdkman-init.sh"
+
+sdk install 8.0.382-tem
+sdk install 11.0.20-tem
+sdk install 17.0.8-tem
