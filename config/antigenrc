@@ -7,7 +7,13 @@ antigen bundles << EOBUNDLES
     autojump
 EOBUNDLES
 
-# uLoad bundles from zsh-users repo.
+#Load other bundles
+antigen bundle << EOBUNDLES
+    Aloxaf/fzf-tab
+    unixorn/fzf-zsh-plugin@main
+EOBUNDLES
+
+# Load bundles from zsh-users repo.
 antigen bundle << EOBUNDLES
     zsh-users/zsh-syntax-highlighting
     zsh-users/zsh-autosuggestions
