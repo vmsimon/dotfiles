@@ -232,13 +232,11 @@ function configure_zsh() {
     do
       config=$(basename "$f")
       substep "Processing $config file..."
-      if ! [[ -e $HOME/.$config ]] ; then
-        if ! [[ -h $HOME/.$config ]] ; then
+      if [[ -e $HOME/.$config ]] ; then
+        error "~/.${config} already exists, leave untouched"
+      else
           cp "$f" "$HOME/.$config"
           success "$HOME/.$config created"
-        fi
-      else
-        error "~/.${config} already exists, leave untouched"
       fi
     done
 
