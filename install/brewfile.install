@@ -13,10 +13,10 @@ tap "peak/tap"
 tap "sdkman/tap"
 
 ##################### brew #####################
+# Plugin manager for zsh, inspired by oh-my-zsh and vundle
+brew "antigen"
 # Shell extension to jump to frequently used directories
 brew "autojump"
-# Programmable completion for Bash 4.2+
-brew "bash-completion@2"
 # Clone of cat(1) with syntax highlighting and Git integration
 brew "bat"
 # Versatile and fast Unicode/ASCII/ANSI graphics renderer
@@ -59,6 +59,8 @@ brew "helmfile"
 brew "htop"
 # User-friendly cURL replacement (command-line HTTP client)
 brew "httpie"
+# Kubernetes CLI To Manage Your Clusters In Style!
+brew "k9s"
 # Kubernetes command-line interface
 brew "kubernetes-cli"
 # Package manager for kubectl plugins
@@ -67,6 +69,8 @@ brew "krew"
 brew "lazydocker"
 # Input filter for the pager less
 brew "lesspipe"
+# A Kubernetes Cluster sanitizer and linter.
+brew "popeye"
 # Password generator
 brew "pwgen"
 # 7-Zip is a file archiver with a high compression ratio
@@ -75,8 +79,6 @@ brew "sevenzip"
 brew "sops"
 # SSL scanner
 brew "sslyze"
-# Cross-shell prompt for astronauts
-# brew "starship"
 # Crypto and x509 Swiss-Army-Knife
 brew "step"
 # Tail multiple Kubernetes pods & their containers
@@ -91,12 +93,6 @@ brew "watch"
 brew "wget"
 # UNIX shell (command interpreter)
 brew "zsh"
-# Plugin manager for zsh, inspired by oh-my-zsh and vundle
-brew "antigen"
-# Kubernetes CLI To Manage Your Clusters In Style!
-brew "k9s"
-# A Kubernetes Cluster sanitizer and linter.
-brew "popeye"
 
 ## Other Tap's
 # A Homebrew tap containing the Formula for the SDKMAN! CLI.

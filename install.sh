@@ -108,6 +108,10 @@ function install_packages_with_brewfile() {
     info "Installing packages within $DOTFILES_REPO/install/brewfile.install ..."
     if brew bundle --file=${DOTFILES_REPO}/install/brewfile.install; then
         success "Brewfile installation succeeded."
+        step ""
+        error "Apps are installed in /Applications,"
+        error "be aware that you will get a warning from your mac on first start"
+        step ""
     else
         error "Brewfile installation failed."
         exit 1
@@ -124,7 +128,6 @@ function brew_install() {
             success "Package ${package_to_install} installation succeeded."
         else
             error "Package ${package_to_install} installation failed."
-            exit 1
         fi
     fi
 }
@@ -143,7 +146,9 @@ function sdk_install() {
     info "Installing Java SDK's from ${DOTFILES_REPO}/install/sdk.install ..."
     bash "$DOTFILES_REPO/install/sdk.install"
     info "Finish installing Java SDK's"
+    step ""
     error "On How to use SDKMAN - take a look at https://sdkman.io/usage"
+    step ""
 }
 
 function configure_git() {
@@ -272,6 +277,10 @@ function info() {
 
 function substep() {
     coloredEcho "$1" magenta "========>"
+}
+
+function step() {
+    coloredEcho "$1" white "==>"
 }
 
 function success() {
