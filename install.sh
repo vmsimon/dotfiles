@@ -231,9 +231,9 @@ function configure_zsh() {
     for f in ${DOTFILES_REPO}/config/*
     do
       info "Processing $(basename $f) file..."
-      if ! [[ -f $HOME/.$f ]] ; then
-        cp ${DOTFILES_REPO}/config/$f $HOME/.$f
-        success "$HOME/.$f created"
+      if ! [[ -f $HOME/.$(basename $f) ]] ; then
+        cp $f $HOME/.$(basename $f)
+        success "$HOME/.$(basename $f) created"
       else
         info "file already exists, leave untouched"
       fi
