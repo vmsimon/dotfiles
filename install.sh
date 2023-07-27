@@ -34,7 +34,8 @@ main() {
     clone_dotfiles_repo
 
     # Installing all packages in Dotfiles repository's Brewfile
-    install_packages_with_brewfile
+    install_with_brewfile
+    install_cask_with_brewfile
 
     # Configuring git config file
     configure_git
