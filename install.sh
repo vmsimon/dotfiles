@@ -145,6 +145,7 @@ function brew_install() {
 
 function brew_cleanup() {
     info "brew cleanup"
+    # Remove lock files installed from brew bundle
     [[ -f ${DOTFILES_REPO}/install/brewfile.install.lock.json ]] && rm ${DOTFILES_REPO}/install/brewfile.install.lock.json
     [[ -f ${DOTFILES_REPO}/install/brewcask.install.lock.json ]] && rm ${DOTFILES_REPO}/install/brewcask.install.lock.json
     if brew cleanup; then

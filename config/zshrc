@@ -13,7 +13,7 @@ if [[ -d $(brew --prefix fzf)/bin/fzf ]]: then
 
     # fzf git integration
     # https://github.com/junegunn/fzf-git.sh
-    [[ -f ~/.fzf-git.sh ]] && source ~/.fzf-git.sh
+    [[ -f ~/.fzf-git.zsh ]] && source ~/.fzf-git.zsh
 fi
 
 # first install antigen with `brew install antigen`
