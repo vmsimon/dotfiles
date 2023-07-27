@@ -22,7 +22,7 @@ cask "apache-directory-studio"
 cask "browserosaurus"
 # Clipboard extension app
 cask "clipy"
-#Terminal emulator as alternative to Apple's Terminal app
+# Terminal emulator as alternative to Apple's Terminal app
 cask "iterm2"
 #JetBrains tools manager
 cask "jetbrains-toolbox"
