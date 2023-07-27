@@ -35,7 +35,7 @@ main() {
 
     # Installing all packages in Dotfiles repository's Brewfile
     install_with_brewfile
-    install_casks_with_brewfile
+    install_cask_with_brewfile
 
     # Configuring git config file
     configure_git
@@ -115,7 +115,7 @@ function install_with_brewfile() {
     fi
 }
 
-function install_casks_with_brewfile() {
+function install_cask_with_brewfile() {
     info "Installing packages within $DOTFILES_REPO/install/brewcask.install ..."
     if brew bundle --file=${DOTFILES_REPO}/install/brewcask.install; then
         success "Brewfile installation succeeded."
