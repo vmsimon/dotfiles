@@ -15,11 +15,11 @@ antigen bundles <<EOBUNDLES
     git
     autojump
     Aloxaf/fzf-tab
-    arzzen/calc.plugin.zsh
-    unixorn/fzf-zsh-plugin@main
     zsh-users/zsh-autosuggestions
     zsh-users/zsh-syntax-highlighting
     zsh-users/zsh-completions
+    arzzen/calc.plugin.zsh
+    unixorn/fzf-zsh-plugin@main
 EOBUNDLES
 
 #antigen theme robbyrussell
