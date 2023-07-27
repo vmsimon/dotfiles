@@ -228,7 +228,7 @@ EOM
 function configure_zsh() {
     info "Setting up zsh config files..."
 
-    for f in ${DOTFILES_REPO}/config/
+    for f in ${DOTFILES_REPO}/config/*
     do
       info "Processing $f file..."
       if ! [[ -f $HOME/.$f ]] ; then
