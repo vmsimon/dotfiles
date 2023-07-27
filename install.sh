@@ -230,7 +230,7 @@ function configure_zsh() {
 
     for f in ${DOTFILES_REPO}/config/*
     do
-      info "Processing $(basname $f) file..."
+      info "Processing $(basename $f) file..."
       if ! [[ -f $HOME/.$f ]] ; then
         cp ${DOTFILES_REPO}/config/$f $HOME/.$f
         success "$HOME/.$f created"
