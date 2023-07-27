@@ -11,6 +11,7 @@ EOBUNDLES
 antigen bundle << EOBUNDLES
     Aloxaf/fzf-tab
     unixorn/fzf-zsh-plugin@main
+    joshskidmore/zsh-fzf-history-search
 EOBUNDLES
 
 # Load bundles from zsh-users repo.
