@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export SDKMAN_DIR=$(brew --prefix sdkman-cli)/libexec
+export SDKMAN_DIR=$(brew --prefix install-cli)/libexec
 [[ -s "${SDKMAN_DIR}/bin/sdkman-init.sh" ]] && source "${SDKMAN_DIR}/bin/sdkman-init.sh"
 
 sdk install java 8.0.382-tem

@@ -1,0 +1,21 @@
+# Load the oh-my-zsh's library.
+antigen use oh-my-zsh
+
+# Load bundles from oh-my-zsh repo.
+antigen bundles << EOBUNDLES
+    git
+    autojump
+EOBUNDLES
+
+# uLoad bundles from zsh-users repo.
+antigen bundle << EOBUNDLES
+    zsh-users/zsh-syntax-highlighting
+    zsh-users/zsh-autosuggestions
+EOBUNDLES
+
+# load the theme
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+antigen theme romkatv/powerlevel10k
+
+# Commit Antigen Configuration
+antigen apply

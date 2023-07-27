@@ -1,0 +1,39 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+# Check if fzf ist installed
+if [[ -d $(brew --prefix fzf)/bin/fzf ]]: then
+    export FZF_PREVIEW_ADVANCED=true
+    export FZF_PATH=$(brew --prefix fzf)/bin/fzf
+    [[ -f $HOME/.fzf.zsh ]] && source $HOME/.fzf.zsh
+
+    # fzf git integration
+    # https://github.com/junegunn/fzf-git.sh
+    [[ -f ~/.fzf-git.sh ]] && source ~/.fzf-git.sh
+fi
+
+# first install antigen with `brew install antigen`
+# adding antigen to zsh
+if [[ -f /usr/local/share/antigen/antigen.zsh ]]; then
+    source /usr/local/share/antigen/antigen.zsh
+    [[ -f $HOME/.antigenrc ]] && antigen init $HOME/.antigenrc
+fi
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ -f $HOME/.p10k.zsh ]] && source $HOME/.p10k.zsh
+
+# 1Passwort SSH-Agent integration
+# https://developer.1password.com/docs/ssh/get-started#step-4-configure-your-ssh-or-git-client
+[[ -s $HOME/.1password/agent.sock ]] && export SSH_AUTH_SOCK=$HOME/.1password/agent.sock
+
+# SDKMAN-CLI integration
+# https://github.com/sdkman/homebrew-tap
+# THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR=$(brew --prefix sdkman-cli)/libexec
+[[ -f "${SDKMAN_DIR}/bin/sdkman-init.sh" ]] &&  source "${SDKMAN_DIR}/bin/sdkman-init.sh"
+
+

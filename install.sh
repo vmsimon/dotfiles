@@ -63,7 +63,7 @@ main() {
     #setup_macOS_defaults
     # Updating login items
     #update_login_items
-    # install Java SDK's with sdkman
+    # install Java SDK's with install
     sdk_install
 
     brew_cleanup
@@ -106,7 +106,7 @@ function install_homebrew() {
 
 function install_packages_with_brewfile() {
     info "Installing packages within $DOTFILES_REPO/brew/macOS.Brewfile ..."
-    if brew bundle --file=${DOTFILES_REPO}/brew/macOS.Brewfile; then
+    if brew bundle --file=${DOTFILES_REPO}/brew/brewfile.install; then
         success "Brewfile installation succeeded."
     else
         error "Brewfile installation failed."
@@ -209,16 +209,21 @@ EOM
     fi
 }
 
-function setup_symlinks() {
-    POWERLINE_ROOT_REPO=/usr/local/lib/python2.7/site-packages
+function config() {
+    info "Setting up config files..."
 
-    info "Setting up symlinks..."
-    symlink "zsh" ${DOTFILES_REPO}/zsh/zshrc ~/.zshrc
-    symlink "tmux" ${DOTFILES_REPO}/tmux/tmux.conf ~/.tmux.conf
-    symlink "powerline10k" ${DOTFILES_REPO}/p10k/p10k.zsh ~/.p10k.zsh
-    symlink "fzf-git.sh" ${DOTFILES_REPO}/fzf/fzf-git.sh ~/.fzf-git.sh
-    symlink "fzf-tab.sh" ${DOTFILES_REPO}/fzf/fzf-tab.sh ~/.fzf-tab.sh
-    success "Symlinks successfully setup."
+    for f in ${DOTFILES_REPO}/config/
+    do
+      info "Processing $f file..."
+      if ! [[ -f $HOME/.$f ]] ; then
+        cp ${DOTFILES_REPO}/config/$f $HOME/.$f
+        success "$HOME/.$f created"
+      else
+        info "file already exists, leave untouched"
+      fi
+    done
+
+    success "Config files successfully setup."
 }
 
 function symlink() {
