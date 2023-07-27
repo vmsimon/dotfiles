@@ -140,7 +140,7 @@ function brew_cleanup() {
 }
 
 function sdk_install() {
-    info "Installing Java SDK's within .dotfiles/sdkman/sdk.install ..."
+    info "Installing Java SDK's from ${DOTFILES_REPO}/sdkman/sdk.install ..."
     bash "$DOTFILES_REPO/sdkman/sdk.install"
     info "Finish installing Java SDK's"
     error "On How to use SDKMAN - take a look at https://sdkman.io/usage"
@@ -216,7 +216,8 @@ function setup_symlinks() {
     symlink "zsh" ${DOTFILES_REPO}/zsh/zshrc ~/.zshrc
     symlink "tmux" ${DOTFILES_REPO}/tmux/tmux.conf ~/.tmux.conf
     symlink "powerline10k" ${DOTFILES_REPO}/p10k/p10k.zsh ~/.p10k.zsh
-    symlink "fzf.zsh" ${DOTFILES_REPO}/fzf/fzf.zsh ~/.fzf.zsh
+    symlink "fzf.zsh" ${DOTFILES_REPO}/fzf/fzf.sh ~/.fzf.zsh
+    symlink "fzf.bash" ${DOTFILES_REPO}/fzf/fzf.sh ~/.fzf.bash
     success "Symlinks successfully setup."
 }
 
