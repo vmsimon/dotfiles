@@ -95,7 +95,7 @@ function install_homebrew() {
         # /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
         url=https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh
         if /bin/bash -c "$(curl -fsSL ${url})"; then
-            echo 'eval $(/opt/homebrew/bin/brew shellenv)' >> ~/.zprofile
+            echo 'eval $(/usr/local/bin/brew/bin/brew shellenv)' >> ~/.zprofile
             success "Homebrew installation succeeded."
         else
             error "Homebrew installation failed."
