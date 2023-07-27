@@ -231,12 +231,12 @@ function configure_zsh() {
     for f in ${DOTFILES_REPO}/config/*
     do
       config=$(basename "$f")
-      info "Processing $config file..."
+      substep "Processing $config file..."
       if ! [[ -f $HOME/.$config ]] ; then
-        cp $f $HOME/.$config
+        cp "$f" "$HOME/.$config"
         success "$HOME/.$config created"
       else
-        info "file already exists, leave untouched"
+        error "~/.${config} already exists, leave untouched"
       fi
     done
 
