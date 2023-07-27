@@ -72,7 +72,7 @@ main() {
 
 }
 
-DOTFILES_REPO=~/.dotfiles
+DOTFILES_REPO=~/.config/dotfiles
 
 function ask_for_sudo() {
     info "Prompting for sudo password..."
@@ -95,6 +95,7 @@ function install_homebrew() {
         # /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
         url=https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh
         if /bin/bash -c "$(curl -fsSL ${url})"; then
+            echo 'eval $(/opt/homebrew/bin/brew shellenv)' >> ~/.zprofile
             success "Homebrew installation succeeded."
         else
             error "Homebrew installation failed."
@@ -104,8 +105,8 @@ function install_homebrew() {
 }
 
 function install_packages_with_brewfile() {
-    info "Installing packages within .dotfiles/brew/macOS.Brewfile ..."
-    if brew bundle --file=~/.dotfiles/brew/macOS.Brewfile; then
+    info "Installing packages within $DOTFILES_REPO/brew/macOS.Brewfile ..."
+    if brew bundle --file=${DOTFILES_REPO}/brew/macOS.Brewfile; then
         success "Brewfile installation succeeded."
     else
         error "Brewfile installation failed."
@@ -215,6 +216,7 @@ function setup_symlinks() {
     symlink "zsh" ${DOTFILES_REPO}/zsh/zshrc ~/.zshrc
     symlink "tmux" ${DOTFILES_REPO}/tmux/tmux.conf ~/.tmux.conf
     symlink "powerline10k" ${DOTFILES_REPO}/p10k/p10k.zsh ~/.p10k.zsh
+    symlink "fzf.zsh" ${DOTFILES_REPO}/fzf/fzf.zsh ~/.fzf.zsh
     success "Symlinks successfully setup."
 }
 
