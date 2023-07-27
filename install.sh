@@ -235,7 +235,7 @@ function configure_zsh() {
       if [[ -f $HOME/.$config || -L $HOME/.$config ]] ; then
         error "~/.${config} already exists, leave untouched"
       else
-          cp "$f" "$HOME/.$config"
+          cp "$f" "$HOME/.$config" &>/dev/null
           success "$HOME/.$config created"
       fi
     done
