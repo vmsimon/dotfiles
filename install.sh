@@ -50,7 +50,7 @@ main() {
     #yarn_install "${yarn_packages[@]}"
 
     # Setting up symlinks so that we can use all plugins
-    setup_symlinks
+    configure_zsh
 
     # Setting up Vim
     #setup_vim
@@ -225,8 +225,8 @@ EOM
     fi
 }
 
-function config() {
-    info "Setting up config files..."
+function configure_zsh() {
+    info "Setting up zsh config files..."
 
     for f in ${DOTFILES_REPO}/config/
     do
