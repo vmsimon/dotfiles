@@ -19,6 +19,8 @@ brew "autojump"
 brew "bash-completion@2"
 # Clone of cat(1) with syntax highlighting and Git integration
 brew "bat"
+# Versatile and fast Unicode/ASCII/ANSI graphics renderer
+brew "chafa"
 # Get a file from an HTTP, HTTPS or FTP server
 brew "curl"
 # Tool for exploring each layer in a docker image
@@ -65,6 +67,8 @@ brew "kubernetes-cli"
 brew "krew"
 # Lazier way to manage everything docker
 brew "lazydocker"
+# Input filter for the pager less
+brew "lesspipe"
 # Password generator
 brew "pwgen"
 # 7-Zip is a file archiver with a high compression ratio

@@ -18,6 +18,8 @@ antigen bundles <<EOBUNDLES
     autojump
     git
     arzzen/calc.plugin.zsh
+    unixorn/fzf-zsh-plugin@main
+    Aloxaf/fzf-tab
 EOBUNDLES
 
 #antigen theme robbyrussell

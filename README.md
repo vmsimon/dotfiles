@@ -17,6 +17,7 @@ Originally Inspired by [My macOS Empire](https://medium.com/@Sadhosn/build-a-mac
     * antigen - Plugin manager for zsh, inspired by oh-my-zsh and vundle - https://antigen.sharats.me/
     * autojump - Shell extension to jump to frequently used directories - https://github.com/wting/autojump
     * bat - Clone of cat with syntax highlighting and Git integration - https://github.com/sharkdp/bat
+    * chafe - Versatile and fast Unicode/ASCII/ANSI graphics renderer - https://hpjansson.org/chafa/
     * curl -  Get a file from an HTTP, HTTPS or FTP server - https://curl.se
     * dive -Tool for exploring each layer in a docker image - https://github.com/wagoodman/dive
     * docker - Pack, ship and run any application as a lightweight container - https://www.docker.com/
@@ -41,6 +42,7 @@ Originally Inspired by [My macOS Empire](https://medium.com/@Sadhosn/build-a-mac
     * kubernets-cli - Kubernetes command-line interface - https://kubernetes.io/
     * krew - Package manager for kubectl plugins - https://sigs.k8s.io/krew/
     * lazydocker - Lazier way to manage everything docker - https://github.com/jesseduffield/lazydocker
+    * lesspipe - Input filter for the pager less - https://github.com/wofr06/lesspipe/
 	* popeye - A Kubernetes Cluster sanitizer and linter - https://popeyecli.io
     * pwgen - Password generator - https://pwgen.sourceforge.io/
     * sevenzip - 7-Zip is a file archiver with a high compression ratio - https://7-zip.org
