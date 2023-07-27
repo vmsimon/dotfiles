@@ -104,9 +104,19 @@ function install_homebrew() {
     fi
 }
 
-function install_packages_with_brewfile() {
+function install_with_brewfile() {
     info "Installing packages within $DOTFILES_REPO/install/brewfile.install ..."
     if brew bundle --file=${DOTFILES_REPO}/install/brewfile.install; then
+        success "Brewfile installation succeeded."
+    else
+        error "Brewfile installation failed."
+        exit 1
+    fi
+}
+
+function install_casks_with_brewfile() {
+    info "Installing packages within $DOTFILES_REPO/install/brewcask.install ..."
+    if brew bundle --file=${DOTFILES_REPO}/install/brewcask.install; then
         success "Brewfile installation succeeded."
         step ""
         error "Apps are installed in /Applications,"
@@ -114,7 +124,6 @@ function install_packages_with_brewfile() {
         step ""
     else
         error "Brewfile installation failed."
-        exit 1
     fi
 }
 
@@ -128,6 +137,7 @@ function brew_install() {
             success "Package ${package_to_install} installation succeeded."
         else
             error "Package ${package_to_install} installation failed."
+            exit 1
         fi
     fi
 }

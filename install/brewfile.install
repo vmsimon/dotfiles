@@ -6,8 +6,6 @@ tap "1password/tap"
 tap "atlassian/tap"
 tap "aws/tap"
 tap "hashicorp/tap"
-tap "homebrew/cask-fonts"
-tap "homebrew/cask-versions"
 tap "homebrew/services"
 tap "peak/tap"
 tap "sdkman/tap"
@@ -99,49 +97,3 @@ brew "zsh"
 brew "sdkman/tap/sdkman-cli"
 # Parallel S3 and local filesystem execution tool
 brew "peak/tap/s5cmd"
-
-
-##################### cask #####################
-# Firefox WebBrowser
-cask "firefox"
-# Google Chrome Webbrowser
-cask "google-chrome"
-# The 1Password password manager
-cask "1password"
-# Command-line helper for the 1Password password manager
-cask "1password-cli"
-#Uninstaller and cleaning assistant
-cask "appcleaner"
-# Eclipse-based LDAP browser and directory client
-cask "apache-directory-studio"
-# Open-source browser prompter
-cask "browserosaurus"
-# Clipboard extension app
-cask "clipy"
-#Terminal emulator as alternative to Apple's Terminal app
-cask "iterm2"
-#JetBrains tools manager
-cask "jetbrains-toolbox"
-# Kubernetes IDE
-cask "lens"
-# Visual tool to design, develop and administer MySQL servers
-cask "mysqlworkbench"
-# Porting tool, to make Windows programs/games into native apps
-cask "porting-kit"
-# Collaboration platform for API development
-cask "postman"
-# Move and resize windows using keyboard shortcuts or snap areas
-cask "rectangle"
-# Team communication and collaboration software
-cask "slack"
-# General-purpose text editor
-cask "textmate"
-# Network protocol analyzer
-cask "wireshark"
-# X Certificate and Key management
-cask "xca"
-
-
-##################### mas #####################
-
-
