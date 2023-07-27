@@ -105,8 +105,8 @@ function install_homebrew() {
 }
 
 function install_packages_with_brewfile() {
-    info "Installing packages within $DOTFILES_REPO/brew/macOS.Brewfile ..."
-    if brew bundle --file=${DOTFILES_REPO}/config/brewfile.install; then
+    info "Installing packages within $DOTFILES_REPO/install/brewfile.install ..."
+    if brew bundle --file=${DOTFILES_REPO}/install/brewfile.install; then
         success "Brewfile installation succeeded."
     else
         error "Brewfile installation failed."
