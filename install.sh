@@ -283,11 +283,11 @@ function coloredEcho() {
 }
 
 function info() {
-    coloredEcho "$1" green "========>"
+    coloredEcho "$1" green "==>"
 }
 
 function substep() {
-    coloredEcho "$1" magenta "========>"
+    coloredEcho "$1" magenta "==>"
 }
 
 function step() {
@@ -295,11 +295,11 @@ function step() {
 }
 
 function success() {
-    coloredEcho "$1" blue "========>"
+    coloredEcho "$1" blue "==>"
 }
 
 function error() {
-    coloredEcho "$1" red "========>"
+    coloredEcho "$1" red "==>"
 }
 
 main "$@"
