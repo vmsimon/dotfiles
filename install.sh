@@ -232,7 +232,7 @@ function configure_zsh() {
     do
       config=$(basename "$f")
       substep "Processing $config file..."
-      if ! [[ -f $HOME/.$config ]] ; then
+      if [[ ! -e $HOME/.$config ]] ; then
         cp "$f" "$HOME/.$config"
         success "$HOME/.$config created"
       else
