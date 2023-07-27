@@ -140,8 +140,8 @@ function brew_cleanup() {
 }
 
 function sdk_install() {
-    info "Installing Java SDK's from ${DOTFILES_REPO}/sdkman/sdk.install ..."
-    bash "$DOTFILES_REPO/sdkman/sdk.install"
+    info "Installing Java SDK's from ${DOTFILES_REPO}/install/sdk.install ..."
+    bash "$DOTFILES_REPO/install/sdk.install"
     info "Finish installing Java SDK's"
     error "On How to use SDKMAN - take a look at https://sdkman.io/usage"
 }
