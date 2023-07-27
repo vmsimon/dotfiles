@@ -6,7 +6,7 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 # Check if fzf ist installed
-if [[ -d $(brew --prefix fzf)/bin/fzf ]]: then
+if [[ -d $(brew --prefix fzf)/bin/fzf ]]; then
     export FZF_PREVIEW_ADVANCED=true
     export FZF_PATH=$(brew --prefix fzf)/bin/fzf
     [[ -f $HOME/.fzf.zsh ]] && source $HOME/.fzf.zsh
