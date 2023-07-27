@@ -39,8 +39,6 @@ brew "exa"
 brew "exiftool"
 # Collection of GNU find, xargs, and locate
 brew "findutils"
-# Command-line fuzzy finder written in Go
-brew "fzf"
 # Distributed revision control system
 brew "git"
 # Enable transparent encryption/decryption of files in a git repo

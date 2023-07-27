@@ -216,8 +216,8 @@ function setup_symlinks() {
     symlink "zsh" ${DOTFILES_REPO}/zsh/zshrc ~/.zshrc
     symlink "tmux" ${DOTFILES_REPO}/tmux/tmux.conf ~/.tmux.conf
     symlink "powerline10k" ${DOTFILES_REPO}/p10k/p10k.zsh ~/.p10k.zsh
-    symlink "fzf.zsh" ${DOTFILES_REPO}/fzf/fzf.sh ~/.fzf.zsh
-    symlink "fzf.bash" ${DOTFILES_REPO}/fzf/fzf.sh ~/.fzf.bash
+    symlink "fzf-git.sh" ${DOTFILES_REPO}/fzf/fzf-git.sh ~/.fzf-git.sh
+    symlink "fzf-tab.sh" ${DOTFILES_REPO}/fzf/fzf-tab.sh ~/.fzf-tab.sh
     success "Symlinks successfully setup."
 }
 

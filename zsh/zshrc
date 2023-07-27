@@ -40,6 +40,10 @@ export SDKMAN_DIR=$(brew --prefix sdkman-cli)/libexec
 # Include fzf
 [[ ! -f ~/.fzf.zsh ]] || source ~/.fzf.zsh
 
+# fzf tab configuration
+# https://github.com/Aloxaf/fzf-tab/#configure
+[[ ! -f ~/.fzf-tab.sh ]] || source ~/.fzf-tab.sh
+
 # fzf git integration
 # https://github.com/junegunn/fzf-git.sh
 [[ ! -f ~/.fzf-git.sh ]] || source ~/.fzf-git.sh
