@@ -67,8 +67,12 @@ brew "kubernetes-cli"
 brew "krew"
 # Lazier way to manage everything docker
 brew "lazydocker"
+# Simple terminal UI for git commands
+brew "lazygit"
 # Input filter for the pager less
 brew "lesspipe"
+# Interactive cheatsheet tool for the command-line
+brew "navi"
 # A Kubernetes Cluster sanitizer and linter.
 brew "popeye"
 # Password generator
