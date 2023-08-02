@@ -5,11 +5,11 @@ zsh_plugins=${ZDOTDIR:-~}/.zsh_plugins.zsh
 # ensure you have a .zsh_plugins.txt file where you can add zsh_plugins
 [[ -f ${zsh_plugins:r}.txt ]] || touch ${zsh_plugins:r}.txt
 
-# load antidote
+# load antidote and generate static zsh_plugins.zsh file
 [[ -f ${HOMEBREW_PREFIX}/share/antidote/antidote.zsh ]] && source ${HOMEBREW_PREFIX}/share/antidote/antidote.zsh
-if [[ -! $zsh_plugins -nt ${zsh_plugins:r}.txt ]]; then
+if [[ ! $zsh_plugins -nt ${zsh_plugins:r}.txt ]]; then
     echo -e "\033[0;33mInitializing ANTIDOTE and zsh plugins - please be patient ...\033[0m"
-    (antidote bundle < ${zsh_plugins:r}.txt > |$zsh_plugins)
+    (antidote bundle <${zsh_plugins:r}.txt >|$zsh_plugins)
 fi
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
@@ -22,16 +22,22 @@ fi
 # load antidote static zsh_plugins.zsh file
 source $zsh_plugins
 
+# Load powerlevel10k prompt
+[[ -f ${ZDOTDIR:-~}/.p10k.zsh ]] && source ${ZDOTDIR:-~}/.p10k.zsh
+
 # Check if fzf is installed ans set some sanitizer variables
 if [[ -f $(brew --prefix fzf)/bin/fzf ]]; then
     export FZF_PREVIEW_ADVANCED=true
     export FZF_PATH=$(brew --prefix fzf)/bin/fzf
 fi
 
+# load fzf.zsh
+[[ -f ${ZDOTDIR:-~}/.fzf.zsh ]] && source ${ZDOTDIR:-~}/.fzf.zsh
+
 # Manually source fzf-git.sh,
 # because sourcing it via plugin manager will make shell terminate
 if type antidote >/dev/null 2>&1; then
-  source $(__antidote_bundledir junegunn/fzf-git.sh)/fzf-git.sh
+  source $(__antidote_bundle_dir junegunn/fzf-git.sh)/fzf-git.sh
 fi
 
 # 1Password SSH-Agent integration
