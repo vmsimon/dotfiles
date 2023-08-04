@@ -359,7 +359,7 @@ fi
 if '[' "$fzfgit" '=' '1' ']'; then
   'command' 'awk' "/Install or update core components/ {print \"# Clone https://www.github.com/junegunn/fzf-git.sh.\"; print \"z4h install junegunn/fzf-git.sh || return\"; print \"\"} 1" "$zshrc" >"$zshrc.bak"
   'command' 'mv' '--' "$zshrc.bak" "$zshrc"
-  'command' 'awk' "/Define key bindings/ {print \"# Source https://www.github.com/junegunn/fzf-git.sh.\"; print \"z4h source junegunn/fzf-git.sh(fzf-git.sh\"; print \"\"} 1" "$zshrc" >"$zshrc.bak"
+  'command' 'awk' "/Define key bindings/ {print \"# Source https://www.github.com/junegunn/fzf-git.sh.\"; print \"z4h source junegunn/fzf-git.sh/fzf-git.sh\"; print \"\"} 1" "$zshrc" >"$zshrc.bak"
   'command' 'mv' '--' "$zshrc.bak" "$zshrc"
 fi
 
