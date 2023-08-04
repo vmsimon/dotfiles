@@ -275,6 +275,35 @@ while 'true'; do
   esac
 done
 
+>&2 'printf' '\n'
+>&2 'printf' 'Do you want to use \033[32m SDKMan.io \033[0m?\n'
+>&2 'printf' '\n'
+>&2 'printf' '  \033[1m(y)\033[0m  Yes.\n'
+>&2 'printf' '  \033[1m(n)\033[0m  No.\n'
+>&2 'printf' '  \033[1m(q)\033[0m  Quit and do nothing.\n'
+>&2 'printf' '\n'
+while 'true'; do
+  >&2 'printf' '\033[1mChoice [ynq]:\033[0m '
+  'read_choice'
+  case "$choice" in
+    'y'|'Y')
+      sdkman='1'
+      'break'
+    ;;
+    'n'|'N')
+      'break'
+    ;;
+    'q'|'Q')
+      'exit' '1'
+    ;;
+    "$lf")
+    ;;
+    *)
+      >&2 'printf' '\033[33mz4h\033[0m: invalid choice: \033[31m%s\033[0m\n' "$choice"
+    ;;
+  esac
+done
+
 rcs=''
 
 for f in ~/'.zshenv' ~/'.zshenv.zwc'     \
@@ -346,6 +375,7 @@ if command -v 'mktemp' >'/dev/null' 2>&1; then
   brewinstall="$('command' 'mktemp' "$HOME"/brewinstall.sh.XXXXXXXXXX)"
   brewfile="$('command' 'mktemp' "$HOME"/brewfile.install.XXXXXXXXXX)"
   brewcask="$('command' 'mktemp' "$HOME"/brewcask.install.XXXXXXXXXX)"
+  sdkman="$('command' 'mktemp' "$HOME"/sdkman.io.XXXXXXXXXX)"
 else
   zshenv="$HOME"/.zshenv.tmp."$$"
   zshrc="$HOME"/.zshrc.tmp."$$"
@@ -353,6 +383,7 @@ else
   brewinstall="$HOME"/brewinstall.sh."$$"
   brewfile="$HOME"/brewfile.install."$$"
   brewcask="$HOME"/brewcask.install."$$"
+  ç="$HOME"/sdkman.io."$$"
 fi
 
 url='https://raw.githubusercontent.com/romkatv/zsh4humans/v5'
@@ -360,7 +391,7 @@ url='https://raw.githubusercontent.com/romkatv/zsh4humans/v5'
 if '[' "$macossetup" '=' '1' ']'; then
 
   >&2 'printf' '\n'
-  >&2 'printf' 'Settings up \033[33mZsh OEV macOS Development\033[0m...\n'
+  >&2 'printf' 'Settings up \033[33mOEV macOS Development\033[0m...\n'
   >&2 'printf' '\n'
 
   if ! err="$($fetch "$brewinstall" '--' "https://raw.githubusercontent.com/Homebrew/install/master/install.sh" 2>&1)"; then
@@ -369,16 +400,19 @@ if '[' "$macossetup" '=' '1' ']'; then
     'command' 'rm' '-f' '--' "$brewinstall" 2>'/dev/null'
     'exit' '1'
   else
-    >&2 'printf' '\033[33mbrew\033[0m: Start Homebrew install from \033[1m%s\033[0m ...\n' "github.com/Homebrew/install/HEAD/install.sh"
+    >&2 'printf' '\033[33mbrew\033[0m: Start Homebrew install from \033[1m%s\033[0m ...\n' "github.com/Homebrew/install/master/install.sh"
+    >&2 'printf' '\n'
     'command' 'bash' '--' "$brewinstall" 2>'/dev/null'
   fi
   if ! err="$($fetch "$brewfile" '--' "https://raw.githubusercontent.com/vmsimon/dotfiles/HEAD/install/brewfile.install" 2>&1)"; then
     >&2 'printf' "%s\n" "$err"
     >&2 'printf' '\033[33mz4h\033[0m: failed to download \033[31m%s\033[0m\n' "https://raw.githubusercontent.com/vmsimon/dotfiles/master/install/brewfile.install"
-    'command' 'rm' '-f' '--' "$brewfile" 2>'/dev/null'
+  'command' 'rm' '-f' '--' "$brewfile" 2>'/dev/null'
     'exit' '1'
   else
+    >&2 'printf' '\n'
     >&2 'printf' '\033[33mbrew\033[0m: Start brew bundle --file from \033[1m%s\033[0m\n' "github.com/vmsimon/dotfiles/master/install/brewcask.install"
+    >&2 'printf' '\n'
     'command' 'brew' 'bundle' '--file' "$brewfile" 2>'/dev/null'
   fi
   if ! err="$($fetch "$brewcask" '--' "https://raw.githubusercontent.com/vmsimon/dotfiles/master/install/brewcask.install" 2>&1)"; then
@@ -387,8 +421,28 @@ if '[' "$macossetup" '=' '1' ']'; then
     'command' 'rm' '-f' '--' "$brewcask" 2>'/dev/null'
     'exit' '1'
   else
-    >&2 'printf' '\033[33mbrew\033[0m: Start brew bundle --file from \033[1m%s\033[0m\n' "github.com/vmsimon/dotfiles/HEAD/install/brewcask.install"
+    >&2 'printf' '\n'
+    >&2 'printf' '\033[33mbrew\033[0m: Start brew bundle --file from \033[1m%s\033[0m\n' "github.com/vmsimon/dotfiles/master/install/brewcask.install"
+    >&2 'printf' '\n'
     'command' 'brew' 'bundle' '--file' "$brewcask" 2>'/dev/null'
+  fi
+fi
+
+if '[' "$macossetup" '=' '1' ']'; then
+
+  >&2 'printf' '\n'
+  >&2 'printf' 'Installing \033[33mSDKMan.io\033[0m...\n'
+  >&2 'printf' '\n'
+
+  if ! err="$($fetch "$sdkman" '--' "https://get.sdkman.io/?rcupdate=false" 2>&1)"; then
+    >&2 'printf' "%s\n" "$err"
+    >&2 'printf' '\033[33mz4h\033[0m: failed to download \033[31m%s\033[0m\n' "https://get.sdkman.io/"
+    'command' 'rm' '-f' '--' "$sdkman" 2>'/dev/null'
+    'exit' '1'
+  else
+    >&2 'printf' '\033[33mbrew\033[0m: Start SDKMan install from \033[1m%s\033[0m ...\n' "get.sdkman.io/"
+    >&2 'printf' '\n'
+    'command' 'bash' '--' "$sdkman" 2>'/dev/null'
   fi
 fi
 
@@ -465,6 +519,7 @@ fi
 'command' 'rm' '-f' '--' "$brewinstall"
 'command' 'rm' '-f' '--' "$brewfile"
 'command' 'rm' '-f' '--' "$brewcask"
+'command' 'rm' '-f' '--' "$sdkman"
 
 'printf' '%s\n' "$backup_dir" >"$Z4H"/welcome
 
