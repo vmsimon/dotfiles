@@ -352,11 +352,17 @@ fi
 url='https://raw.githubusercontent.com/romkatv/zsh4humans/v5'
 
 
-if '[' "$macossetup" '=' '1' ']'; then
-  >&2 'printf' '\n'
-  >&2 'printf' 'Settings up \033[33mOEV macOS Development\033[0m...\n'
-  >&2 'printf' '\n'
- 'command' 'sh' '-c' '\"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)\"'
+
+brewsetup="$HOME"/brewinstall.sh
+
+if ! err="$($fetch "$brewsetup" '--' "https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh" 2>&1)"; then
+  >&2 'printf' "%s\n" "$err"
+  >&2 'printf' '\033[33mz4h\033[0m: failed to download \033[31m%s\033[0m\n' "https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh"
+  'command' 'rm' '-rf' '--' "$brewsetup" 2>'/dev/null'
+  'exit' '1'
+else
+  >&2 'printf' '\033[33mz4h\033[0m: Start \033[31m%s\033[0m\n' "https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh"
+  'exit' '1'
 fi
 
 >&2 'printf' '\n'
