@@ -354,19 +354,46 @@ url='https://raw.githubusercontent.com/romkatv/zsh4humans/v5'
 
 
 brewsetup="$HOME"/brewinstall.sh
+brewfile="$HOME"/brewfile.install
+brewcask="$HOME"/brewcask.install
 
-if ! err="$($fetch "$brewsetup" '--' "https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh" 2>&1)"; then
-  >&2 'printf' "%s\n" "$err"
-  >&2 'printf' '\033[33mz4h\033[0m: failed to download \033[31m%s\033[0m\n' "https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh"
-  'command' 'rm' '-rf' '--' "$brewsetup" 2>'/dev/null'
-  'exit' '1'
-else
-  >&2 'printf' '\033[33mz4h\033[0m: Start \033[31m%s\033[0m\n' "https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh"
-  'command' 'bash' '--' "$brewsetup" 2>'/dev/null'
+if '[' "$macossetup" '=' '1' ']'; then
+
+  >&2 'printf' '\n'
+  >&2 'printf' 'Settings up \033[33mZsh OEV macOS Development\033[0m...\n'
+  >&2 'printf' '\n'
+
+  if ! err="$($fetch "$brewsetup" '--' "https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh" 2>&1)"; then
+    >&2 'printf' "%s\n" "$err"
+    >&2 'printf' '\033[33mz4h\033[0m: failed to download \033[31m%s\033[0m\n' "https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh"
+    'command' 'rm' '-rf' '--' "$brewsetup" 2>'/dev/null'
+    'exit' '1'
+  else
+    >&2 'printf' '\033[33mbrew\033[0m: Start Homebrew install ...'
+    'command' 'bash' '--' "$brewsetup" 2>'/dev/null'
+  fi
+  if ! err="$($fetch "$brewfile" '--' "https://raw.githubusercontent.com/vmsimon/dotfiles/HEAD/install/brewfile.install" 2>&1)"; then
+    >&2 'printf' "%s\n" "$err"
+    >&2 'printf' '\033[33mz4h\033[0m: failed to download \033[31m%s\033[0m\n' "https://raw.githubusercontent.com/vmsimon/dotfiles/HEAD/install/brewfile.install"
+    'command' 'rm' '-rf' '--' "$brewcask" 2>'/dev/null'
+    'exit' '1'
+  else
+    >&2 'printf' '\033[33mbrew\033[0m: Start brew bundle brewfile install ...'
+    'command' 'brew' 'bundle' '--file' "$brewfile" 2>'/dev/null'
+  fi
+  if ! err="$($fetch "$brewcask" '--' "https://raw.githubusercontent.com/vmsimon/dotfiles/HEAD/install/brewcask.install" 2>&1)"; then
+    >&2 'printf' "%s\n" "$err"
+    >&2 'printf' '\033[33mz4h\033[0m: failed to download \033[31m%s\033[0m\n' "https://raw.githubusercontent.com/vmsimon/dotfiles/HEAD/install/brewfile.install"
+    'command' 'rm' '-rf' '--' "$brewcask" 2>'/dev/null'
+    'exit' '1'
+  else
+    >&2 'printf' '\033[33mbrew\033[0m: Start brew bundle brewcask install ...'
+    'command' 'brew' 'bundle' '--file' "$brewcask" 2>'/dev/null'
+  fi
 fi
 
 >&2 'printf' '\n'
->&2 'printf' 'Settings up \033[33mZsh For Humans\033[0m...\n'
+>&2 'printf' 'Settings up \033[33mZsh For Humans\033[0m from \033[1mgithub.com/romkatv/zsh4humans\033[0m...\n'
 >&2 'printf' '\n'
 
 >&2 printf '\033[33mz4h\033[0m: fetching \033[4mz4h.zsh\033[0m from \033[1mgithub.com/romkatv/zsh4humans\033[0m\n'
