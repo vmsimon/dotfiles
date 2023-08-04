@@ -343,10 +343,16 @@ if command -v 'mktemp' >'/dev/null' 2>&1; then
   zshenv="$('command' 'mktemp' "$HOME"/.zshenv.XXXXXXXXXX)"
   zshrc="$('command' 'mktemp' "$HOME"/.zshrc.XXXXXXXXXX)"
   z4h="$('command' 'mktemp' "$HOME"/.z4h.XXXXXXXXXX)"
+  brewinstall="$('command' 'mktemp' "$HOME"/brewinstall.sh.XXXXXXXXXX)"
+  brewfile="$('command' 'mktemp' "$HOME"/brewfile.install.XXXXXXXXXX)"
+  brewcask="$('command' 'mktemp' "$HOME"/brewcask.install.XXXXXXXXXX)"
 else
   zshenv="$HOME"/.zshenv.tmp."$$"
   zshrc="$HOME"/.zshrc.tmp."$$"
   z4h="$HOME"/.z4h.tmp."$$"
+  brewinstall="$HOME"/brewinstall.sh."$$"
+  brewfile="$HOME"/brewfile.install."$$"
+  brewcask="$HOME"/brewcask.install."$$"
 fi
 
 url='https://raw.githubusercontent.com/romkatv/zsh4humans/v5'
@@ -363,31 +369,31 @@ if '[' "$macossetup" '=' '1' ']'; then
   >&2 'printf' 'Settings up \033[33mZsh OEV macOS Development\033[0m...\n'
   >&2 'printf' '\n'
 
-  if ! err="$($fetch "$brewsetup" '--' "https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh" 2>&1)"; then
+  if ! err="$($fetch "$brewinstall" '--' "https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh" 2>&1)"; then
     >&2 'printf' "%s\n" "$err"
     >&2 'printf' '\033[33mz4h\033[0m: failed to download \033[31m%s\033[0m\n' "https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh"
-    'command' 'rm' '-rf' '--' "$brewsetup" 2>'/dev/null'
+    'command' 'rm' '-f' '--' "$brewinstall" 2>'/dev/null'
     'exit' '1'
   else
-    >&2 'printf' '\033[33mbrew\033[0m: Start Homebrew install ...'
-    'command' 'bash' '--' "$brewsetup" 2>'/dev/null'
+    >&2 'printf' '\033[33mbrew\033[0m: Start Homebrew install from \033[1m%s\033[0m ...\n' "github.com/Homebrew/install/HEAD/install.sh"
+    'command' 'bash' '--' "$brewinstall" 2>'/dev/null'
   fi
   if ! err="$($fetch "$brewfile" '--' "https://raw.githubusercontent.com/vmsimon/dotfiles/HEAD/install/brewfile.install" 2>&1)"; then
     >&2 'printf' "%s\n" "$err"
     >&2 'printf' '\033[33mz4h\033[0m: failed to download \033[31m%s\033[0m\n' "https://raw.githubusercontent.com/vmsimon/dotfiles/HEAD/install/brewfile.install"
-    'command' 'rm' '-rf' '--' "$brewcask" 2>'/dev/null'
+    'command' 'rm' '-f' '--' "$brewfile" 2>'/dev/null'
     'exit' '1'
   else
-    >&2 'printf' '\033[33mbrew\033[0m: Start brew bundle brewfile install ...'
+    >&2 'printf' '\033[33mbrew\033[0m: Start brew bundle --file from \033[1m%s\033[0m\n' "github.com/vmsimon/dotfiles/HEAD/install/brewcask.install"
     'command' 'brew' 'bundle' '--file' "$brewfile" 2>'/dev/null'
   fi
   if ! err="$($fetch "$brewcask" '--' "https://raw.githubusercontent.com/vmsimon/dotfiles/HEAD/install/brewcask.install" 2>&1)"; then
     >&2 'printf' "%s\n" "$err"
-    >&2 'printf' '\033[33mz4h\033[0m: failed to download \033[31m%s\033[0m\n' "https://raw.githubusercontent.com/vmsimon/dotfiles/HEAD/install/brewfile.install"
-    'command' 'rm' '-rf' '--' "$brewcask" 2>'/dev/null'
+    >&2 'printf' '\033[33mz4h\033[0m: failed to download \033[31m%s\033[0m\n' "https://raw.githubusercontent.com/vmsimon/dotfiles/HEAD/install/brewcask.install"
+    'command' 'rm' '-f' '--' "$brewcask" 2>'/dev/null'
     'exit' '1'
   else
-    >&2 'printf' '\033[33mbrew\033[0m: Start brew bundle brewcask install ...'
+    >&2 'printf' '\033[33mbrew\033[0m: Start brew bundle --file from \033[1m%s\033[0m\n' "github.com/vmsimon/dotfiles/HEAD/install/brewcask.install"
     'command' 'brew' 'bundle' '--file' "$brewcask" 2>'/dev/null'
   fi
 fi
@@ -462,6 +468,9 @@ fi
 'command' 'mv' '--' "$zshenv" ~/'.zshenv'
 'command' 'mv' '--' "$zshrc" ~/'.zshrc'
 'command' 'mv' '--' "$z4h" "$Z4H"/z4h.zsh
+'command' 'rm' '-f' '--' "$brewinstall"
+'command' 'rm' '-f' '--' "$brewfile"
+'command' 'rm' '-f' '--' "$brewcask"
 
 'printf' '%s\n' "$backup_dir" >"$Z4H"/welcome
 
