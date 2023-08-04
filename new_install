@@ -357,12 +357,6 @@ fi
 
 url='https://raw.githubusercontent.com/romkatv/zsh4humans/v5'
 
-
-
-brewsetup="$HOME"/brewinstall.sh
-brewfile="$HOME"/brewfile.install
-brewcask="$HOME"/brewcask.install
-
 if '[' "$macossetup" '=' '1' ']'; then
 
   >&2 'printf' '\n'
