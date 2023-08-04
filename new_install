@@ -356,7 +356,7 @@ if '[' "$macossetup" '=' '1' ']'; then
   >&2 'printf' '\n'
   >&2 'printf' 'Settings up \033[33mOEV macOS Development\033[0m...\n'
   >&2 'printf' '\n'
- 'command' '/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"'
+ 'command' 'bash' '-c' '--' '\"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)\"'
 fi
 
 >&2 'printf' '\n'
