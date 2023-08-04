@@ -372,6 +372,7 @@ if command -v 'mktemp' >'/dev/null' 2>&1; then
   zshenv="$('command' 'mktemp' "$HOME"/.zshenv.XXXXXXXXXX)"
   zshrc="$('command' 'mktemp' "$HOME"/.zshrc.XXXXXXXXXX)"
   z4h="$('command' 'mktemp' "$HOME"/.z4h.XXXXXXXXXX)"
+  env="$('command' 'mktemp' "$HOME"/.env.zsh.XXXXXXXXXX)"
   brewinstall="$('command' 'mktemp' "$HOME"/brewinstall.sh.XXXXXXXXXX)"
   brewfile="$('command' 'mktemp' "$HOME"/brewfile.install.XXXXXXXXXX)"
   brewcask="$('command' 'mktemp' "$HOME"/brewcask.install.XXXXXXXXXX)"
@@ -380,10 +381,11 @@ else
   zshenv="$HOME"/.zshenv.tmp."$$"
   zshrc="$HOME"/.zshrc.tmp."$$"
   z4h="$HOME"/.z4h.tmp."$$"
+  env="$HOME"/.env.zsh.tmp."$$"
   brewinstall="$HOME"/brewinstall.sh."$$"
   brewfile="$HOME"/brewfile.install."$$"
   brewcask="$HOME"/brewcask.install."$$"
-  ç="$HOME"/sdkman.io."$$"
+  sdkman="$HOME"/sdkman.io."$$"
 fi
 
 url='https://raw.githubusercontent.com/romkatv/zsh4humans/v5'
@@ -482,8 +484,13 @@ fi
 if '[' "$fzfgit" '=' '1' ']'; then
   'command' 'awk' "/Install or update core components/ {print \"# Clone https://www.github.com/junegunn/fzf-git.sh.\"; print \"z4h install junegunn/fzf-git.sh || return\"; print \"\"} 1" "$zshrc" >"$zshrc.bak"
   'command' 'mv' '--' "$zshrc.bak" "$zshrc"
-  'command' 'awk' "/Define key bindings/ {print \"# Source https://www.github.com/junegunn/fzf-git.sh.\"; print \"z4h source junegunn/fzf-git.sh/fzf-git.sh\"; print \"\"} 1" "$zshrc" >"$zshrc.bak"
-  'command' 'mv' '--' "$zshrc.bak" "$zshrc"
+  'command' 'awk' "{print \"# Source https://www.github.com/junegunn/fzf-git.sh.\"; print \"z4h source junegunn/fzf-git.sh/fzf-git.sh\"; print \"\"} 1" "$env" >"$env.bak"
+  'command' 'mv' '--' "$env.bak" "$env"
+fi
+
+if '[' "$sdkman" '=' '1' ']'; then
+  'command' 'awk' "{print \"# Source https://sdkman.io.\"; print \"z4h source $\{HOME\}/.sdkman/bin/sdkman-init.sh\"; print \"\"} 1" "$env" >>"$env.bak"
+  'command' 'mv' '--' "$env.bak" "$env"
 fi
 
 if '[' "$direnv" '=' '1' ']'; then
@@ -516,6 +523,8 @@ fi
 'command' 'mv' '--' "$zshenv" ~/'.zshenv'
 'command' 'mv' '--' "$zshrc" ~/'.zshrc'
 'command' 'mv' '--' "$z4h" "$Z4H"/z4h.zsh
+'command' 'mv' '--' "$env" ~/'.env.zsh'
+
 'command' 'rm' '-f' '--' "$brewinstall"
 'command' 'rm' '-f' '--' "$brewfile"
 'command' 'rm' '-f' '--' "$brewcask"
