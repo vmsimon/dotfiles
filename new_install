@@ -401,7 +401,7 @@ if '[' '-r' '/proc/version' ']' && 'command' 'grep' '-q' '[Mm]icrosoft' '/proc/v
   'command' 'mv' '--' "$zshrc.bak" "$zshrc"
 fi
 
-if '[' "macossetup" '=' '1' ']'; then
+if '[' "$macossetup" '=' '1' ']'; then
         url=https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh
         'command' '/bin/bash -c' "$(curl -fsSL ${url})"
 fi
