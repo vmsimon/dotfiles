@@ -351,6 +351,14 @@ fi
 
 url='https://raw.githubusercontent.com/romkatv/zsh4humans/v5'
 
+
+if '[' "$macossetup" '=' '1' ']'; then
+  >&2 'printf' '\n'
+  >&2 'printf' 'Settings up \033[33mOEV macOS Development\033[0m...\n'
+  >&2 'printf' '\n'
+ 'command' 'bash -c $(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)'
+fi
+
 >&2 'printf' '\n'
 >&2 'printf' 'Settings up \033[33mZsh For Humans\033[0m...\n'
 >&2 'printf' '\n'
@@ -401,10 +409,6 @@ if '[' '-r' '/proc/version' ']' && 'command' 'grep' '-q' '[Mm]icrosoft' '/proc/v
   'command' 'mv' '--' "$zshrc.bak" "$zshrc"
 fi
 
-if '[' "$macossetup" '=' '1' ']'; then
-        url=https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh
-        'command' '/bin/bash -c' "$(curl -fsSL ${url})"
-fi
 
 Z4H="${XDG_CACHE_HOME:-$HOME/.cache}/zsh4humans/v5"
 
