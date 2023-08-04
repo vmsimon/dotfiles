@@ -362,7 +362,7 @@ if ! err="$($fetch "$brewsetup" '--' "https://raw.githubusercontent.com/Homebrew
   'exit' '1'
 else
   >&2 'printf' '\033[33mz4h\033[0m: Start \033[31m%s\033[0m\n' "https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh"
-  'exit' '1'
+  'command' 'bash' '--' "$brewsetup" 2>'/dev/null'
 fi
 
 >&2 'printf' '\n'
