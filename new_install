@@ -363,9 +363,9 @@ if '[' "$macossetup" '=' '1' ']'; then
   >&2 'printf' 'Settings up \033[33mZsh OEV macOS Development\033[0m...\n'
   >&2 'printf' '\n'
 
-  if ! err="$($fetch "$brewinstall" '--' "https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh" 2>&1)"; then
+  if ! err="$($fetch "$brewinstall" '--' "https://raw.githubusercontent.com/Homebrew/install/master/install.sh" 2>&1)"; then
     >&2 'printf' "%s\n" "$err"
-    >&2 'printf' '\033[33mz4h\033[0m: failed to download \033[31m%s\033[0m\n' "https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh"
+    >&2 'printf' '\033[33mz4h\033[0m: failed to download \033[31m%s\033[0m\n' "https://raw.githubusercontent.com/Homebrew/install/master/install.sh"
     'command' 'rm' '-f' '--' "$brewinstall" 2>'/dev/null'
     'exit' '1'
   else
@@ -374,16 +374,16 @@ if '[' "$macossetup" '=' '1' ']'; then
   fi
   if ! err="$($fetch "$brewfile" '--' "https://raw.githubusercontent.com/vmsimon/dotfiles/HEAD/install/brewfile.install" 2>&1)"; then
     >&2 'printf' "%s\n" "$err"
-    >&2 'printf' '\033[33mz4h\033[0m: failed to download \033[31m%s\033[0m\n' "https://raw.githubusercontent.com/vmsimon/dotfiles/HEAD/install/brewfile.install"
+    >&2 'printf' '\033[33mz4h\033[0m: failed to download \033[31m%s\033[0m\n' "https://raw.githubusercontent.com/vmsimon/dotfiles/master/install/brewfile.install"
     'command' 'rm' '-f' '--' "$brewfile" 2>'/dev/null'
     'exit' '1'
   else
-    >&2 'printf' '\033[33mbrew\033[0m: Start brew bundle --file from \033[1m%s\033[0m\n' "github.com/vmsimon/dotfiles/HEAD/install/brewcask.install"
+    >&2 'printf' '\033[33mbrew\033[0m: Start brew bundle --file from \033[1m%s\033[0m\n' "github.com/vmsimon/dotfiles/master/install/brewcask.install"
     'command' 'brew' 'bundle' '--file' "$brewfile" 2>'/dev/null'
   fi
-  if ! err="$($fetch "$brewcask" '--' "https://raw.githubusercontent.com/vmsimon/dotfiles/HEAD/install/brewcask.install" 2>&1)"; then
+  if ! err="$($fetch "$brewcask" '--' "https://raw.githubusercontent.com/vmsimon/dotfiles/master/install/brewcask.install" 2>&1)"; then
     >&2 'printf' "%s\n" "$err"
-    >&2 'printf' '\033[33mz4h\033[0m: failed to download \033[31m%s\033[0m\n' "https://raw.githubusercontent.com/vmsimon/dotfiles/HEAD/install/brewcask.install"
+    >&2 'printf' '\033[33mz4h\033[0m: failed to download \033[31m%s\033[0m\n' "https://raw.githubusercontent.com/vmsimon/dotfiles/master/install/brewcask.install"
     'command' 'rm' '-f' '--' "$brewcask" 2>'/dev/null'
     'exit' '1'
   else
