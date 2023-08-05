@@ -166,14 +166,6 @@ if '[' "$macossetup" '=' '1' ']'; then
     >&2 'printf' '\n'
     'command' 'bash' '--' "$brewinstall" 2>'/dev/null'
   fi
-  case "$platform" in
-    'darwin arm64')
-      'command' 'echo' "eval \"\$(/opt/homebrew/bin/brew shellenv)\")" >> ${HOME}/.zprofile
-    ;;
-    'darwin x86_64')
-      'command' 'echo' "eval \"\$(/usr/local/bin/brew shellenv)\")" >> ${HOME}/.zprofile
-    ;;
-  esac
 
   >&2 'printf' '\n'
   >&2 'printf' '\033[31mInstallation of my preferred Homebrew formulas\033[0m \n'
@@ -496,6 +488,14 @@ if '[' '-r' '/proc/version' ']' && 'command' 'grep' '-q' '[Mm]icrosoft' '/proc/v
 fi
 
 if '[' "$macossetup" '=' '1' ']'; then
+  case "$platform" in
+    'darwin arm64')
+      'command' 'echo' "eval \"\$(/opt/homebrew/bin/brew shellenv)\"" >> ${HOME}/.zprofile
+    ;;
+    'darwin x86_64')
+      'command' 'echo' "eval \"\$(/usr/local/bin/brew shellenv)\"" >> ${HOME}/.zprofile
+    ;;
+  esac
   if '[' "$fzfgit" '=' '1' ']'; then
     'command' 'awk' "/Install or update core components/ {print \"# Clone https://www.github.com/junegunn/fzf-git.sh.\"; print \"z4h install junegunn/fzf-git.sh || return\"; print \"\"} 1" "$zshrc" >"$zshrc.bak"
     'command' 'mv' '--' "$zshrc.bak" "$zshrc"
