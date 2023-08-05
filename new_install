@@ -76,7 +76,7 @@ sdkman=''
 
 cleanup() {
   'trap' '-' 'INT' 'TERM' 'EXIT'
-  'command' 'rm' '-f' '--' "$zshenv" "$zshrc" "${zshrc:+$zshrc.bak}" "$z4h" "${env:+$env.bak}" "$brewinstall" "$brewfile" "$brewcask" "$sdkman"
+  'command' 'rm' '-f' '--' "$zprofile" "$zshenv" "$zshrc" "${zshrc:+$zshrc.bak}" "$z4h" "$env" "${env:+$env.bak}" "$brewinstall" "$brewfile" "$brewcask" "$sdkman"
   'command' 'stty' "$saved_tty_settings"
 }
 
@@ -99,6 +99,7 @@ read_choice() {
 }
 
 if command -v 'mktemp' >'/dev/null' 2>&1; then
+  zprofile="$('command' 'mktemp' "$HOME"/.zprofile.XXXXXXXXXX)"
   zshenv="$('command' 'mktemp' "$HOME"/.zshenv.XXXXXXXXXX)"
   zshrc="$('command' 'mktemp' "$HOME"/.zshrc.XXXXXXXXXX)"
   z4h="$('command' 'mktemp' "$HOME"/.z4h.XXXXXXXXXX)"
@@ -108,6 +109,7 @@ if command -v 'mktemp' >'/dev/null' 2>&1; then
   brewcask="$('command' 'mktemp' "$HOME"/brewcask.install.XXXXXXXXXX)"
   sdkman="$('command' 'mktemp' "$HOME"/sdkman.io.XXXXXXXXXX)"
 else
+  zprofile="$HOME"/.zprofile.tmp."$$"
   zshenv="$HOME"/.zshenv.tmp."$$"
   zshrc="$HOME"/.zshrc.tmp."$$"
   z4h="$HOME"/.z4h.tmp."$$"
@@ -181,6 +183,7 @@ if '[' "$macossetup" '=' '1' ']'; then
     >&2 'printf' '\033[33mbrew\033[0m: Start brew bundle --file from \033[1m%s\033[0m\n' "github.com/vmsimon/dotfiles/HEAD/install/brewcask.install"
     >&2 'printf' '\n'
     'command' 'brew' 'bundle' '--file' "$brewfile" 2>'/dev/null'
+    'command' 'rm' '-f' '--' "$brewfile".lock.json
   fi
 
   >&2 'printf' '\n'
@@ -197,6 +200,7 @@ if '[' "$macossetup" '=' '1' ']'; then
     >&2 'printf' '\033[33mbrew\033[0m: Start brew bundle --file from \033[1m%s\033[0m\n' "github.com/vmsimon/dotfiles/HEAD/install/brewcask.install"
     >&2 'printf' '\n'
     'command' 'brew' 'bundle' '--file' "$brewcask" 2>'/dev/null'
+    'command' 'rm' '-f' '--' "$brewcask".lock.json
   fi
 
   >&2 'printf' '\n'
@@ -490,11 +494,14 @@ fi
 if '[' "$macossetup" '=' '1' ']'; then
   case "$platform" in
     'darwin arm64')
-      'command' 'echo' "eval \"\$(/opt/homebrew/bin/brew shellenv)\"" >> ${HOME}/.zprofile
+      'command' 'awk' "BEGIN {print \"eval \"\$(/opt/homebrew/bin/brew shellenv)\"\"; print \"\"} 1" "$zprofile" >"$zprofile.bak"
+      'command' 'mv' '--' "$zprofile.bak" "$zprofile"
     ;;
     'darwin x86_64')
-      'command' 'echo' "eval \"\$(/usr/local/bin/brew shellenv)\"" >> ${HOME}/.zprofile
+      'command' 'awk' "BEGIN {print \"eval \"\$(/usr/local/bin/brew shellenv)\"\"; print \"\"} 1" "$zprofile" >"$zprofile.bak"
+      'command' 'mv' '--' "$zprofile.bak" "$zprofile"
     ;;
+    *);;
   esac
   if '[' "$fzfgit" '=' '1' ']'; then
     'command' 'awk' "/Install or update core components/ {print \"# Clone https://www.github.com/junegunn/fzf-git.sh.\"; print \"z4h install junegunn/fzf-git.sh || return\"; print \"\"} 1" "$zshrc" >"$zshrc.bak"
@@ -524,6 +531,7 @@ if '[' '-n' "$rcs" ']'; then
   ('cd' && 'command' 'rm' '-f' '--' $rcs ) || 'exit'
 fi
 
+'command' 'mv' '--' "$zprofile" ~/'.zprofile'
 'command' 'mv' '--' "$zshenv" ~/'.zshenv'
 'command' 'mv' '--' "$zshrc" ~/'.zshrc'
 'command' 'mv' '--' "$z4h" "$Z4H"/z4h.zsh
