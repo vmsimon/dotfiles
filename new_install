@@ -68,6 +68,11 @@ saved_tty_settings="$('command' 'stty' '-g')"
 zshenv=''
 zshrc=''
 z4h=''
+env=''
+brewinstall=''
+brewfile=''
+brewcask=''
+sdkman=''
 
 cleanup() {
   'trap' '-' 'INT' 'TERM' 'EXIT'
@@ -161,6 +166,14 @@ if '[' "$macossetup" '=' '1' ']'; then
     >&2 'printf' '\n'
     'command' 'bash' '--' "$brewinstall" 2>'/dev/null'
   fi
+  case "$platform" in
+    'darwin arm64')
+      'command' 'echo' "eval \"\$(/opt/homebrew/bin/brew shellenv)\")" >> ${HOME}/.zprofile
+    ;;
+    'darwin x86_64')
+      'command' 'echo' "eval \"\$(/usr/local/bin/brew shellenv)\")" >> ${HOME}/.zprofile
+    ;;
+  esac
 
   >&2 'printf' '\n'
   >&2 'printf' '\033[31mInstallation of my preferred Homebrew formulas\033[0m \n'
