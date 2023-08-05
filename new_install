@@ -370,7 +370,9 @@ for f in ~/'.zshenv' ~/'.zshenv.zwc'     \
          ~/'.zprofile' ~/'.zprofile.zwc' \
          ~/'.zshrc' ~/'.zshrc.zwc'       \
          ~/'.zlogin' ~/'.zlogin.zwc'     \
-         ~/'.zlogout' ~/'.zlogout.zwc'; do
+         ~/'.zlogout' ~/'.zlogout.zwc'   \
+         ~/'.env.zsh'                    \
+         ; do
   if '[' '-e' "$f" ']'; then
     rcs="$rcs ${f##*/}"
   fi
@@ -478,11 +480,11 @@ if '[' "$macossetup" '=' '1' ']'; then
   if '[' "$fzfgit" '=' '1' ']'; then
     'command' 'awk' "/Install or update core components/ {print \"# Clone https://www.github.com/junegunn/fzf-git.sh.\"; print \"z4h install junegunn/fzf-git.sh || return\"; print \"\"} 1" "$zshrc" >"$zshrc.bak"
     'command' 'mv' '--' "$zshrc.bak" "$zshrc"
-    'command' 'awk' "{print \"# Source https://www.github.com/junegunn/fzf-git.sh.\"; print \"z4h source junegunn/fzf-git.sh/fzf-git.sh\"; print \"\"} 1" "$env" >"$env.bak"
+    'command' 'awk' "BEGIN {print \"# Source https://www.github.com/junegunn/fzf-git.sh.\"; print \"z4h source junegunn/fzf-git.sh/fzf-git.sh\"; print \"\"} 1" "$env" >"$env.bak"
     'command' 'mv' '--' "$env.bak" "$env"
   fi
   if '[' "$sdkman" '=' '1' ']'; then
-    'command' 'awk' "{print \"# Source https://sdkman.io.\"; print \"z4h source $\{HOME\}/.sdkman/bin/sdkman-init.sh\"; print \"\"} 1" "$env" >>"$env.bak"
+    'command' 'awk' "END {print \"# Source https://sdkman.io.\"; print \"z4h source $\{HOME\}/.sdkman/bin/sdkman-init.sh\"; print \"\"} 1" "$env" >"$env.bak"
     'command' 'mv' '--' "$env.bak" "$env"
   fi
 fi
