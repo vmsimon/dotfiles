@@ -195,6 +195,10 @@ if '[' "$macossetup" '=' '1' ']'; then
   fi
 
   >&2 'printf' '\n'
+  >&2 'printf' '\033[31mInstallation of SDKMan (https://sdkman.io)\033[0m \n'
+  >&2 'printf' '\n'
+
+  >&2 'printf' '\n'
   >&2 'printf' 'Do you want to use \033[32m SDKMan.io \033[0m?\n'
   >&2 'printf' '\n'
   >&2 'printf' '  \033[1m(y)\033[0m  Yes.\n'
