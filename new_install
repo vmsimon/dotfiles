@@ -71,7 +71,7 @@ z4h=''
 
 cleanup() {
   'trap' '-' 'INT' 'TERM' 'EXIT'
-  'command' 'rm' '-f' '--' "$zshenv" "$zshrc" "${zshrc:+$zshrc.bak}" "$z4h"
+  'command' 'rm' '-f' '--' "$zshenv" "$zshrc" "${zshrc:+$zshrc.bak}" "$z4h" "${env:+$env.bak}" "$brewinstall" "$brewfile" "$brewcask" "$sdkman"
   'command' 'stty' "$saved_tty_settings"
 }
 
@@ -93,7 +93,154 @@ read_choice() {
   '[' "$choice" '=' "$lf" ] || 'echo'
 }
 
+if command -v 'mktemp' >'/dev/null' 2>&1; then
+  zshenv="$('command' 'mktemp' "$HOME"/.zshenv.XXXXXXXXXX)"
+  zshrc="$('command' 'mktemp' "$HOME"/.zshrc.XXXXXXXXXX)"
+  z4h="$('command' 'mktemp' "$HOME"/.z4h.XXXXXXXXXX)"
+  env="$('command' 'mktemp' "$HOME"/.env.zsh.XXXXXXXXXX)"
+  brewinstall="$('command' 'mktemp' "$HOME"/brewinstall.sh.XXXXXXXXXX)"
+  brewfile="$('command' 'mktemp' "$HOME"/brewfile.install.XXXXXXXXXX)"
+  brewcask="$('command' 'mktemp' "$HOME"/brewcask.install.XXXXXXXXXX)"
+  sdkman="$('command' 'mktemp' "$HOME"/sdkman.io.XXXXXXXXXX)"
+else
+  zshenv="$HOME"/.zshenv.tmp."$$"
+  zshrc="$HOME"/.zshrc.tmp."$$"
+  z4h="$HOME"/.z4h.tmp."$$"
+  env="$HOME"/.env.zsh.tmp."$$"
+  brewinstall="$HOME"/brewinstall.sh."$$"
+  brewfile="$HOME"/brewfile.install."$$"
+  brewcask="$HOME"/brewcask.install."$$"
+  sdkman="$HOME"/sdkman.io."$$"
+fi
+
 >&2 'printf' 'Greetings, Human!\n'
+>&2 'printf' '\n'
+>&2 'printf' 'This is my \033[1mPersonal\033[0m macOS and zsh4humans installation!\n'
+>&2 'printf' '\n'
+>&2 'printf' '  \033[1m(y)\033[0m  This script will\033[32m install\033[0m my preferred \033[33mMac Software\033[0m.\n'
+>&2 'printf' '  \033[1m(n)\033[0m  As a second Part it will install\033[32m romkatv/zsh4humans\033[0m and doing some little\033[33m modifications\033[0m.\n'
+>&2 'printf' '  \033[1m(q)\033[0m  If you dont want this, press Q(uit) and do nothing. Else press Y(eah!)\n'
+>&2 'printf' '  \033[1m(q)\033[0m  Or (really?) press N(o) if you only want to install romkatv/zsh4humans (v5) without any modifications\n'
+>&2 'printf' '\n'
+while 'true'; do
+  >&2 'printf' '\033[1mChoice [12q]:\033[0m '
+  'read_choice'
+  case "$choice" in
+    'y'|'Y')
+      macossetup='1'
+      fzfgit='1' # atm no choice, just install and use it
+      'break'
+    ;;
+    'n'|'N')
+      macossetup='0'
+      'break'
+    ;;
+    'q'|'Q')
+      'exit' '1'
+    ;;
+    "$lf")
+    ;;
+    *)
+      >&2 'printf' '\033[33mz4h\033[0m: invalid choice: \033[31m%s\033[0m\n' "$choice"
+    ;;
+  esac
+done
+
+if '[' "$macossetup" '=' '1' ']'; then
+  >&2 'printf' '\n'
+  >&2 'printf' '\033[31mInstallation of Homebrew\033[0m \n'
+  >&2 'printf' '\n'
+
+  if ! err="$($fetch "$brewinstall" '--' "https://raw.githubusercontent.com/Homebrew/install/master/install.sh" 2>&1)"; then
+    >&2 'printf' "%s\n" "$err"
+    >&2 'printf' '\033[33mz4h\033[0m: failed to download \033[31m%s\033[0m\n' "https://raw.githubusercontent.com/Homebrew/install/master/install.sh"
+    'command' 'rm' '-f' '--' "$brewinstall" 2>'/dev/null'
+    'exit' '1'
+  else
+    >&2 'printf' '\033[33mbrew\033[0m: Start Homebrew install from \033[1m%s\033[0m ...\n' "github.com/Homebrew/install/master/install.sh"
+    >&2 'printf' '\n'
+    'command' 'bash' '--' "$brewinstall" 2>'/dev/null'
+  fi
+
+  >&2 'printf' '\n'
+  >&2 'printf' '\033[31mInstallation of my preferred Homebrew Formulas\033[0m \n'
+  >&2 'printf' '\n'
+
+  if ! err="$($fetch "$brewfile" '--' "https://raw.githubusercontent.com/vmsimon/dotfiles/HEAD/install/brewfile.install" 2>&1)"; then
+    >&2 'printf' "%s\n" "$err"
+    >&2 'printf' '\033[33mz4h\033[0m: failed to download \033[31m%s\033[0m\n' "https://raw.githubusercontent.com/vmsimon/dotfiles/master/install/brewfile.install"
+  'command' 'rm' '-f' '--' "$brewfile" 2>'/dev/null'
+    'exit' '1'
+  else
+    >&2 'printf' '\n'
+    >&2 'printf' '\033[33mbrew\033[0m: Start brew bundle --file from \033[1m%s\033[0m\n' "github.com/vmsimon/dotfiles/master/install/brewcask.install"
+    >&2 'printf' '\n'
+    'command' 'brew' 'bundle' '--file' "$brewfile" 2>'/dev/null'
+  fi
+
+  >&2 'printf' '\n'
+  >&2 'printf' '\033[31mInstallation of my preferred Homebrew Casks (macOS Application)\033[0m \n'
+  >&2 'printf' '\n'
+
+  if ! err="$($fetch "$brewcask" '--' "https://raw.githubusercontent.com/vmsimon/dotfiles/master/install/brewcask.install" 2>&1)"; then
+    >&2 'printf' "%s\n" "$err"
+    >&2 'printf' '\033[33mz4h\033[0m: failed to download \033[31m%s\033[0m\n' "https://raw.githubusercontent.com/vmsimon/dotfiles/master/install/brewcask.install"
+    'command' 'rm' '-f' '--' "$brewcask" 2>'/dev/null'
+    'exit' '1'
+  else
+    >&2 'printf' '\n'
+    >&2 'printf' '\033[33mbrew\033[0m: Start brew bundle --file from \033[1m%s\033[0m\n' "github.com/vmsimon/dotfiles/master/install/brewcask.install"
+    >&2 'printf' '\n'
+    'command' 'brew' 'bundle' '--file' "$brewcask" 2>'/dev/null'
+  fi
+
+  >&2 'printf' '\n'
+  >&2 'printf' 'Do you want to use \033[32m SDKMan.io \033[0m?\n'
+  >&2 'printf' '\n'
+  >&2 'printf' '  \033[1m(y)\033[0m  Yes.\n'
+  >&2 'printf' '  \033[1m(n)\033[0m  No.\n'
+  >&2 'printf' '\n'
+  while 'true'; do
+    >&2 'printf' '\033[1mChoice [ynq]:\033[0m '
+    'read_choice'
+    case "$choice" in
+      'y'|'Y')
+        sdkman='1'
+        'break'
+      ;;
+      'n'|'N')
+        'break'
+      ;;
+      "$lf")
+      ;;
+      *)
+        >&2 'printf' '\033[33mz4h\033[0m: invalid choice: \033[31m%s\033[0m\n' "$choice"
+      ;;
+    esac
+  done
+
+  if '[' "$sdkman" '=' '1' ']'; then
+
+    >&2 'printf' '\n'
+    >&2 'printf' 'Installing \033[33mSDKMan.io\033[0m...\n'
+    >&2 'printf' '\n'
+
+    if ! err="$($fetch "$sdkman" '--' "https://get.sdkman.io/?rcupdate=false" 2>&1)"; then
+      >&2 'printf' "%s\n" "$err"
+      >&2 'printf' '\033[33mz4h\033[0m: failed to download \033[31m%s\033[0m\n' "https://get.sdkman.io/"
+      'command' 'rm' '-f' '--' "$sdkman" 2>'/dev/null'
+      'exit' '1'
+    else
+      >&2 'printf' '\033[33mbrew\033[0m: Start SDKMan install from \033[1m%s\033[0m ...\n' "get.sdkman.io/"
+      >&2 'printf' '\n'
+      'command' 'bash' '--' "$sdkman" 2>'/dev/null'
+    fi
+  fi
+
+fi
+
+>&2 'printf' '\033[31mInstallation of romkatv/zsh4humans\033[0m \n'
+>&2 'printf' '\n'
 >&2 'printf' '\n'
 >&2 'printf' 'What kind of \033[1mkeyboard\033[0m are you using?\n'
 >&2 'printf' '\n'
@@ -217,93 +364,6 @@ while 'true'; do
   esac
 done
 
->&2 'printf' '\n'
->&2 'printf' 'Do you want to source \033[32mjunegunn/fzf-git.sh\033[0m?\n'
->&2 'printf' '\n'
->&2 'printf' '  \033[1m(y)\033[0m  Yes.\n'
->&2 'printf' '  \033[1m(n)\033[0m  No.\n'
->&2 'printf' '  \033[1m(q)\033[0m  Quit and do nothing.\n'
->&2 'printf' '\n'
-while 'true'; do
-  >&2 'printf' '\033[1mChoice [ynq]:\033[0m '
-  'read_choice'
-  case "$choice" in
-    'y'|'Y')
-      fzfgit='1'
-      'break'
-    ;;
-    'n'|'N')
-      'break'
-    ;;
-    'q'|'Q')
-      'exit' '1'
-    ;;
-    "$lf")
-    ;;
-    *)
-      >&2 'printf' '\033[33mz4h\033[0m: invalid choice: \033[31m%s\033[0m\n' "$choice"
-    ;;
-  esac
-done
-
->&2 'printf' '\n'
->&2 'printf' 'Do you want to setup \033[32m macOS Environment\033[0m?\n'
->&2 'printf' '\n'
->&2 'printf' '  \033[1m(y)\033[0m  Yes.\n'
->&2 'printf' '  \033[1m(n)\033[0m  No.\n'
->&2 'printf' '  \033[1m(q)\033[0m  Quit and do nothing.\n'
->&2 'printf' '\n'
-while 'true'; do
-  >&2 'printf' '\033[1mChoice [ynq]:\033[0m '
-  'read_choice'
-  case "$choice" in
-    'y'|'Y')
-      macossetup='1'
-      'break'
-    ;;
-    'n'|'N')
-      'break'
-    ;;
-    'q'|'Q')
-      'exit' '1'
-    ;;
-    "$lf")
-    ;;
-    *)
-      >&2 'printf' '\033[33mz4h\033[0m: invalid choice: \033[31m%s\033[0m\n' "$choice"
-    ;;
-  esac
-done
-
->&2 'printf' '\n'
->&2 'printf' 'Do you want to use \033[32m SDKMan.io \033[0m?\n'
->&2 'printf' '\n'
->&2 'printf' '  \033[1m(y)\033[0m  Yes.\n'
->&2 'printf' '  \033[1m(n)\033[0m  No.\n'
->&2 'printf' '  \033[1m(q)\033[0m  Quit and do nothing.\n'
->&2 'printf' '\n'
-while 'true'; do
-  >&2 'printf' '\033[1mChoice [ynq]:\033[0m '
-  'read_choice'
-  case "$choice" in
-    'y'|'Y')
-      sdkman='1'
-      'break'
-    ;;
-    'n'|'N')
-      'break'
-    ;;
-    'q'|'Q')
-      'exit' '1'
-    ;;
-    "$lf")
-    ;;
-    *)
-      >&2 'printf' '\033[33mz4h\033[0m: invalid choice: \033[31m%s\033[0m\n' "$choice"
-    ;;
-  esac
-done
-
 rcs=''
 
 for f in ~/'.zshenv' ~/'.zshenv.zwc'     \
@@ -368,85 +428,8 @@ if '[' '-n' "$rcs" ']'; then
   >&2 'printf' '\n'
 fi
 
-if command -v 'mktemp' >'/dev/null' 2>&1; then
-  zshenv="$('command' 'mktemp' "$HOME"/.zshenv.XXXXXXXXXX)"
-  zshrc="$('command' 'mktemp' "$HOME"/.zshrc.XXXXXXXXXX)"
-  z4h="$('command' 'mktemp' "$HOME"/.z4h.XXXXXXXXXX)"
-  env="$('command' 'mktemp' "$HOME"/.env.zsh.XXXXXXXXXX)"
-  brewinstall="$('command' 'mktemp' "$HOME"/brewinstall.sh.XXXXXXXXXX)"
-  brewfile="$('command' 'mktemp' "$HOME"/brewfile.install.XXXXXXXXXX)"
-  brewcask="$('command' 'mktemp' "$HOME"/brewcask.install.XXXXXXXXXX)"
-  sdkman="$('command' 'mktemp' "$HOME"/sdkman.io.XXXXXXXXXX)"
-else
-  zshenv="$HOME"/.zshenv.tmp."$$"
-  zshrc="$HOME"/.zshrc.tmp."$$"
-  z4h="$HOME"/.z4h.tmp."$$"
-  env="$HOME"/.env.zsh.tmp."$$"
-  brewinstall="$HOME"/brewinstall.sh."$$"
-  brewfile="$HOME"/brewfile.install."$$"
-  brewcask="$HOME"/brewcask.install."$$"
-  sdkman="$HOME"/sdkman.io."$$"
-fi
 
 url='https://raw.githubusercontent.com/romkatv/zsh4humans/v5'
-
-if '[' "$macossetup" '=' '1' ']'; then
-
-  >&2 'printf' '\n'
-  >&2 'printf' 'Settings up \033[33mOEV macOS Development\033[0m...\n'
-  >&2 'printf' '\n'
-
-  if ! err="$($fetch "$brewinstall" '--' "https://raw.githubusercontent.com/Homebrew/install/master/install.sh" 2>&1)"; then
-    >&2 'printf' "%s\n" "$err"
-    >&2 'printf' '\033[33mz4h\033[0m: failed to download \033[31m%s\033[0m\n' "https://raw.githubusercontent.com/Homebrew/install/master/install.sh"
-    'command' 'rm' '-f' '--' "$brewinstall" 2>'/dev/null'
-    'exit' '1'
-  else
-    >&2 'printf' '\033[33mbrew\033[0m: Start Homebrew install from \033[1m%s\033[0m ...\n' "github.com/Homebrew/install/master/install.sh"
-    >&2 'printf' '\n'
-    'command' 'bash' '--' "$brewinstall" 2>'/dev/null'
-  fi
-  if ! err="$($fetch "$brewfile" '--' "https://raw.githubusercontent.com/vmsimon/dotfiles/HEAD/install/brewfile.install" 2>&1)"; then
-    >&2 'printf' "%s\n" "$err"
-    >&2 'printf' '\033[33mz4h\033[0m: failed to download \033[31m%s\033[0m\n' "https://raw.githubusercontent.com/vmsimon/dotfiles/master/install/brewfile.install"
-  'command' 'rm' '-f' '--' "$brewfile" 2>'/dev/null'
-    'exit' '1'
-  else
-    >&2 'printf' '\n'
-    >&2 'printf' '\033[33mbrew\033[0m: Start brew bundle --file from \033[1m%s\033[0m\n' "github.com/vmsimon/dotfiles/master/install/brewcask.install"
-    >&2 'printf' '\n'
-    'command' 'brew' 'bundle' '--file' "$brewfile" 2>'/dev/null'
-  fi
-  if ! err="$($fetch "$brewcask" '--' "https://raw.githubusercontent.com/vmsimon/dotfiles/master/install/brewcask.install" 2>&1)"; then
-    >&2 'printf' "%s\n" "$err"
-    >&2 'printf' '\033[33mz4h\033[0m: failed to download \033[31m%s\033[0m\n' "https://raw.githubusercontent.com/vmsimon/dotfiles/master/install/brewcask.install"
-    'command' 'rm' '-f' '--' "$brewcask" 2>'/dev/null'
-    'exit' '1'
-  else
-    >&2 'printf' '\n'
-    >&2 'printf' '\033[33mbrew\033[0m: Start brew bundle --file from \033[1m%s\033[0m\n' "github.com/vmsimon/dotfiles/master/install/brewcask.install"
-    >&2 'printf' '\n'
-    'command' 'brew' 'bundle' '--file' "$brewcask" 2>'/dev/null'
-  fi
-fi
-
-if '[' "$macossetup" '=' '1' ']'; then
-
-  >&2 'printf' '\n'
-  >&2 'printf' 'Installing \033[33mSDKMan.io\033[0m...\n'
-  >&2 'printf' '\n'
-
-  if ! err="$($fetch "$sdkman" '--' "https://get.sdkman.io/?rcupdate=false" 2>&1)"; then
-    >&2 'printf' "%s\n" "$err"
-    >&2 'printf' '\033[33mz4h\033[0m: failed to download \033[31m%s\033[0m\n' "https://get.sdkman.io/"
-    'command' 'rm' '-f' '--' "$sdkman" 2>'/dev/null'
-    'exit' '1'
-  else
-    >&2 'printf' '\033[33mbrew\033[0m: Start SDKMan install from \033[1m%s\033[0m ...\n' "get.sdkman.io/"
-    >&2 'printf' '\n'
-    'command' 'bash' '--' "$sdkman" 2>'/dev/null'
-  fi
-fi
 
 >&2 'printf' '\n'
 >&2 'printf' 'Settings up \033[33mZsh For Humans\033[0m from \033[1mgithub.com/romkatv/zsh4humans\033[0m...\n'
@@ -481,18 +464,6 @@ else
 fi
 'command' 'mv' '--' "$zshrc.bak" "$zshrc"
 
-if '[' "$fzfgit" '=' '1' ']'; then
-  'command' 'awk' "/Install or update core components/ {print \"# Clone https://www.github.com/junegunn/fzf-git.sh.\"; print \"z4h install junegunn/fzf-git.sh || return\"; print \"\"} 1" "$zshrc" >"$zshrc.bak"
-  'command' 'mv' '--' "$zshrc.bak" "$zshrc"
-  'command' 'awk' "{print \"# Source https://www.github.com/junegunn/fzf-git.sh.\"; print \"z4h source junegunn/fzf-git.sh/fzf-git.sh\"; print \"\"} 1" "$env" >"$env.bak"
-  'command' 'mv' '--' "$env.bak" "$env"
-fi
-
-if '[' "$sdkman" '=' '1' ']'; then
-  'command' 'awk' "{print \"# Source https://sdkman.io.\"; print \"z4h source $\{HOME\}/.sdkman/bin/sdkman-init.sh\"; print \"\"} 1" "$env" >>"$env.bak"
-  'command' 'mv' '--' "$env.bak" "$env"
-fi
-
 if '[' "$direnv" '=' '1' ']'; then
   'command' 'sed' '-i.bak' '-E' "/direnv.*enable/ s/'no'/'yes'/" "$zshrc"
   'command' 'rm' '-f' '--' "$zshrc".bak
@@ -503,6 +474,18 @@ if '[' '-r' '/proc/version' ']' && 'command' 'grep' '-q' '[Mm]icrosoft' '/proc/v
   'command' 'mv' '--' "$zshrc.bak" "$zshrc"
 fi
 
+if '[' "$macossetup" '=' '1' ']'; then
+  if '[' "$fzfgit" '=' '1' ']'; then
+    'command' 'awk' "/Install or update core components/ {print \"# Clone https://www.github.com/junegunn/fzf-git.sh.\"; print \"z4h install junegunn/fzf-git.sh || return\"; print \"\"} 1" "$zshrc" >"$zshrc.bak"
+    'command' 'mv' '--' "$zshrc.bak" "$zshrc"
+    'command' 'awk' "{print \"# Source https://www.github.com/junegunn/fzf-git.sh.\"; print \"z4h source junegunn/fzf-git.sh/fzf-git.sh\"; print \"\"} 1" "$env" >"$env.bak"
+    'command' 'mv' '--' "$env.bak" "$env"
+  fi
+  if '[' "$sdkman" '=' '1' ']'; then
+    'command' 'awk' "{print \"# Source https://sdkman.io.\"; print \"z4h source $\{HOME\}/.sdkman/bin/sdkman-init.sh\"; print \"\"} 1" "$env" >>"$env.bak"
+    'command' 'mv' '--' "$env.bak" "$env"
+  fi
+fi
 
 Z4H="${XDG_CACHE_HOME:-$HOME/.cache}/zsh4humans/v5"
 
@@ -524,11 +507,6 @@ fi
 'command' 'mv' '--' "$zshrc" ~/'.zshrc'
 'command' 'mv' '--' "$z4h" "$Z4H"/z4h.zsh
 'command' 'mv' '--' "$env" ~/'.env.zsh'
-
-'command' 'rm' '-f' '--' "$brewinstall"
-'command' 'rm' '-f' '--' "$brewfile"
-'command' 'rm' '-f' '--' "$brewcask"
-'command' 'rm' '-f' '--' "$sdkman"
 
 'printf' '%s\n' "$backup_dir" >"$Z4H"/welcome
 
