@@ -14,9 +14,9 @@ tap "sdkman/tap"
 # Plugin manager for zsh, inspired by oh-my-zsh and vundle
 #brew "antigen"
 # Plugin manager for zsh, inspired by antigen and antibody
-brew "antidote"
+#brew "antidote"
 # Shell extension to jump to frequently used directories
-brew "autojump"
+#brew "autojump"
 # Clone of cat(1) with syntax highlighting and Git integration
 brew "bat"
 # Versatile and fast Unicode/ASCII/ANSI graphics renderer
@@ -92,16 +92,16 @@ brew "stern"
 # Display directories as trees (with optional color/HTML output)
 brew "tree"
 # Terminal multiplexer
-brew "tmux"
+#brew "tmux"
 # Executes a program periodically, showing output fullscreen
 brew "watch"
 # Internet file retriever
 brew "wget"
 # UNIX shell (command interpreter)
-brew "zsh"
+#brew "zsh"
 
 ## Other Tap's
 # A Homebrew tap containing the Formula for the SDKMAN! CLI.
-brew "sdkman/tap/sdkman-cli"
+#brew "sdkman/tap/sdkman-cli"
 # Parallel S3 and local filesystem execution tool
 brew "peak/tap/s5cmd"
