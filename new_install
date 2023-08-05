@@ -65,6 +65,7 @@ fi
 
 saved_tty_settings="$('command' 'stty' '-g')"
 
+zprofile=''
 zshenv=''
 zshrc=''
 z4h=''
@@ -247,6 +248,7 @@ if '[' "$macossetup" '=' '1' ']'; then
       >&2 'printf' '\033[33mbrew\033[0m: Start SDKMan install from \033[1m%s\033[0m ...\n' "get.sdkman.io/"
       >&2 'printf' '\n'
       'command' 'bash' '--' "$sdkman" 2>'/dev/null'
+      'command' 'rm' '-f' '--' "$sdkman" 2>'/dev/null'
     fi
   fi
 
