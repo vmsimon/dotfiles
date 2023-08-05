@@ -494,11 +494,11 @@ fi
 if '[' "$macossetup" '=' '1' ']'; then
   case "$platform" in
     'darwin arm64')
-      'command' 'awk' "BEGIN {print \"eval \"\$(/opt/homebrew/bin/brew shellenv)\"\"; print \"\"} 1" "$zprofile" >"$zprofile.bak"
+      'command' 'awk' 'BEGIN {print "eval \"\$(/opt/homebrew/bin/brew shellenv)\""; print ""}' "$zprofile" >"$zprofile.bak"
       'command' 'mv' '--' "$zprofile.bak" "$zprofile"
     ;;
     'darwin x86_64')
-      'command' 'awk' "BEGIN {print \"eval \"\$(/usr/local/bin/brew shellenv)\"\"; print \"\"} 1" "$zprofile" >"$zprofile.bak"
+      'command' 'awk' 'BEGIN {print "eval \"\$(/usr/local/bin/brew shellenv)\""; print ""}' "$zprofile" >"$zprofile.bak"
       'command' 'mv' '--' "$zprofile.bak" "$zprofile"
     ;;
     *);;
