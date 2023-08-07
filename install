@@ -76,11 +76,10 @@ brewcask=''
 sdkman=''
 sdkinstall=''
 p10k=''
-fzftab=''
 
 cleanup() {
   'trap' '-' 'INT' 'TERM' 'EXIT'
-  'command' 'rm' '-f' '--' "$zprofile" "$zshenv" "$zshrc" "${zshrc:+$zshrc.bak}" "$z4h" "$env" "${env:+$env.bak}" "$brewinstall" "$brewfile" "$brewcask" "$sdkman" "$sdkinstall" "$p10k" "$fzftab"
+  'command' 'rm' '-f' '--' "$zprofile" "$zshenv" "$zshrc" "${zshrc:+$zshrc.bak}" "$z4h" "$env" "${env:+$env.bak}" "$brewinstall" "$brewfile" "$brewcask" "$sdkman" "$sdkinstall" "$p10k"
   'command' 'stty' "$saved_tty_settings"
 }
 
@@ -114,7 +113,6 @@ if command -v 'mktemp' >'/dev/null' 2>&1; then
   sdkman="$('command' 'mktemp' "$HOME"/sdkman.io.XXXXXXXXXX)"
   sdkinstall="$('command' 'mktemp' "$HOME"/sdkinstall.XXXXXXXXXX)"
   p10k="$('command' 'mktemp' "$HOME"/.p10k.zsh.XXXXXXXXXX)"
-  fzftab="$('command' 'mktemp' "$HOME"/.fzf-tab.zsh.XXXXXXXXXX)"
 else
   zprofile="$HOME"/.zprofile.tmp."$$"
   zshenv="$HOME"/.zshenv.tmp."$$"
@@ -127,7 +125,6 @@ else
   sdkman="$HOME"/sdkman.io."$$"
   sdkinstall="$HOME"/sdk.install."$$"
   p10k="$HOME"/.p10k.zsh."$$"
-  fzftab="$HOME"/.fzf-tab.zsh."$$"
 fi
 
 >&2 'printf' 'Greetings, Human!\n'
@@ -560,17 +557,6 @@ if '[' "$macossetup" '=' '1' ']'; then
     'command' 'mv' '--' "$p10k" ~/'.p10k.zsh'
   fi
 
-
-  >&2 'printf' '\033[33mz4h\033[0m: including \033[4m~/.fzf-tab.zsh\033[0m in \033[4m~/.env.zsh\033[0m\n'
-  if ! err="$($fetch "$fzftab" '--' https://raw.githubusercontent.com/vmsimon/dotfiles/HEAD/.fzf-tab.zsh 2>&1)"; then
-    >&2 'printf' "%s\n" "$err"
-    >&2 'printf' '\033[33mz4h\033[0m: failed to download my personal \033[31m%s\033[0m\n' https://raw.githubusercontent.com/vmsimon/dotfiles/HEAD/.fzf-tab.zsh
-    'command' 'rm' '-f' '--' "$fzftab"
-  else
-    'command' 'awk' "END {print \"# Source .fzf-tab.zsh.\"; print \"z4h source $\{HOME\}/.fzf-git.sh\"; print \"\"} 1" "$env" >"$env.bak"
-    'command' 'mv' '--' "$env.bak" "$env"
-  fi
-
   'command' 'awk' "/Install or update core components/ {print \"# Clone https://www.github.com/junegunn/fzf-git.sh.\"; print \"z4h install junegunn/fzf-git.sh || return\"; print \"\"} 1" "$zshrc" >"$zshrc.bak"
   'command' 'mv' '--' "$zshrc.bak" "$zshrc"
   'command' 'awk' "BEGIN {print \"# Source https://www.github.com/junegunn/fzf-git.sh.\"; print \"z4h source junegunn/fzf-git.sh/fzf-git.sh\"; print \"\"} 1" "$env" >"$env.bak"
@@ -603,7 +589,6 @@ fi
 'command' 'mv' '--' "$zshrc" ~/'.zshrc'
 'command' 'mv' '--' "$z4h" "$Z4H"/z4h.zsh
 'command' 'mv' '--' "$env" ~/'.env.zsh'
-'command' 'mv' '--' "$fzftab" ~/'.fzf-tab.zsh'
 
 'printf' '%s\n' "$backup_dir" >"$Z4H"/welcome
 
