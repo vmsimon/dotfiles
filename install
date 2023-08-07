@@ -80,7 +80,7 @@ fzftab=''
 
 cleanup() {
   'trap' '-' 'INT' 'TERM' 'EXIT'
-  'command' 'rm' '-f' '--' "$zprofile" "$zshenv" "$zshrc" "${zshrc:+$zshrc.bak}" "$z4h" "$env" "${env:+$env.bak}" "$brewinstall" "$brewfile" "$brewcask" "$sdkman" "$sdkinstall" "$p10k"
+  'command' 'rm' '-f' '--' "$zprofile" "$zshenv" "$zshrc" "${zshrc:+$zshrc.bak}" "$z4h" "$env" "${env:+$env.bak}" "$brewinstall" "$brewfile" "$brewcask" "$sdkman" "$sdkinstall" "$p10k" "$fzftab"
   'command' 'stty' "$saved_tty_settings"
 }
 
@@ -571,7 +571,7 @@ if '[' "$macossetup" '=' '1' ']'; then
     >&2 'printf' '\033[33mz4h\033[0m: failed to download my personal \033[31m%s\033[0m\n' https://raw.githubusercontent.com/vmsimon/dotfiles/HEAD/.fzf-tab.zsh
     'command' 'rm' '-f' '--' "$fzftab"
   else
-    'command' 'awk' "BEGIN {while(getline<\"$fzftab\"){print}}" "$env" >"$env.bak"
+    'command' 'awk' "BEGIN {while(getline<\"$fzftab\"){print}} 1" "$env" >"$env.bak"
     'command' 'mv' '--' "$env.bak" "$env"
   fi
 
