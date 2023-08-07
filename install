@@ -598,6 +598,9 @@ fi
 
 'cleanup'
 
+# Sometimes there are some temp files from sdkman install left
+'command' 'rm' '-f' '--' ~/sdkman.io.*
+
 >&2 'printf' '\033[33mz4h\033[0m: bootstrapping \033[32mzsh\033[0m environment\n'
 
 'export' ZDOTDIR="$HOME"
