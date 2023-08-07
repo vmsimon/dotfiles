@@ -231,6 +231,7 @@ if '[' "$macossetup" '=' '1' ']'; then
         'break'
       ;;
       'n'|'N')
+        sdkman='0'
         'break'
       ;;
       "$lf")
@@ -272,6 +273,7 @@ if '[' "$macossetup" '=' '1' ']'; then
             'break'
           ;;
           'n'|'N')
+            javainstall='0'
             'break'
           ;;
           "$lf")
