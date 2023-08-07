@@ -18,10 +18,8 @@ Originally Inspired by [My macOS Empire](https://medium.com/@Sadhosn/build-a-mac
 * What does the script do_
   * Ask for sudo rights
   * Install Homebrew inclusive xcode command line tools if not already installed - https://brew.sh/index_de
-  * Git clone this repo in ~/.dotfiles
+
   * Install the following tools with ```brew install```
-    * antigen - Plugin manager for zsh, inspired by oh-my-zsh and vundle - https://antigen.sharats.me/
-    * autojump - Shell extension to jump to frequently used directories - https://github.com/wting/autojump
     * bat - Clone of cat with syntax highlighting and Git integration - https://github.com/sharkdp/bat
     * chafa - Versatile and fast Unicode/ASCII/ANSI graphics renderer - https://hpjansson.org/chafa/
     * curl -  Get a file from an HTTP, HTTPS or FTP server - https://curl.se
@@ -61,13 +59,10 @@ Originally Inspired by [My macOS Empire](https://medium.com/@Sadhosn/build-a-mac
     * tmuxinator - Manage complex tmux sessions easily - https://github.com/tmuxinator/tmuxinator
     * watch - Executes a program periodically, showing output fullscreen - https://gitlab.com/procps-ng/procps
     * wget - Internet file retriever - https://www.gnu.org/software/wget/
-    * zsh - UNIX shell (command interpreter) - https://www.zsh.org/
-  * Other Tap's
-    * sdkman-cli - A Homebrew tap containing the Formula for the SDKMAN! CLI. - https://github.com/sdkman/homebrew-tap
     * s5cmd - Parallel S3 and local filesystem execution tool - https://github.com/peak/s5cmd
 
   * Install the following apps with ```brew install --cask``` - https://github.com/Homebrew/homebrew-cask
-    * firewfox - Firefox WebBrowser - https://www.mozilla.org/firefox/
+    * firefox - Firefox WebBrowser - https://www.mozilla.org/firefox/
     * google-chrome - Google Chrome Webbrowser - https://www.google.com/chrome/
     * 1password - The 1Password password manager - https://1password.com/
     * 1password-cli - Command-line helper for the 1Password password manager - https://developer.1password.com/docs/cli
