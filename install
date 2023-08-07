@@ -244,13 +244,13 @@ if '[' "$macossetup" '=' '1' ']'; then
     if ! err="$($fetch "$sdkman" '--' "https://get.sdkman.io/?rcupdate=false" 2>&1)"; then
       >&2 'printf' "%s\n" "$err"
       >&2 'printf' '\033[33mz4h\033[0m: failed to download \033[31m%s\033[0m\n' "https://get.sdkman.io/"
-      'command' 'rm' '-f' '--' "$sdkman" 2>'/dev/null'
+      'command' 'rm' '-f' "$sdkman" 2>'/dev/null'
       'exit' '1'
     else
       >&2 'printf' '\033[33mbrew\033[0m: Start SDKMan install from \033[1m%s\033[0m ...\n' "get.sdkman.io/"
       >&2 'printf' '\n'
       'command' 'bash' '--' "$sdkman" 2>'/dev/null'
-      'command' 'rm' '-f' '--' "$sdkman" 2>'/dev/null'
+      'command' 'rm' '-f' "$sdkman" 2>'/dev/null'
     fi
   fi
 
@@ -291,7 +291,7 @@ if '[' "$macossetup" '=' '1' ']'; then
       >&2 'printf' '\033[33mz4h\033[0m: failed to download \033[31m%s\033[0m\n' https://raw.githubusercontent.com/vmsimon/dotfiles/HEAD/sdk.install
     else
       'command' 'bash' '--' "$sdkinstall" 2>'/dev/null'
-      'command' 'rm' '-f' '--' "$sdkinstall" 2>'/dev/null'
+      'command' 'rm' '-f' "$sdkinstall" 2>'/dev/null'
     fi
   fi
 
