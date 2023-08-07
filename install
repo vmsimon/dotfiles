@@ -217,9 +217,9 @@ if '[' "$macossetup" '=' '1' ']'; then
     'command' 'brew' 'bundle' '--file' "$brewcask" 2>'/dev/null'
     'command' 'mkdir' '-p' '--' ~/'.cache/iterm2'
     'command' 'mv' '--' "$iterm2defaults" ~/'.cache/iterm2/com.googlecode.iterm2.plist'
-    'command' 'defaults' 'write' 'com.googlecode.iterm2' 'PrefsCustomFolder' "$HOME/.cache/iterm2/com.googlecode.iterm2.plist"
-    'command' 'defaults' 'write' 'com.googlecode.iterm2' 'LoadPrefsFromCustomFolder' '-bool true'
-    'command' 'defaults' 'write' 'com.googlecode.iterm2' 'SUEnableAutomaticChecks' '-bool true'
+    'command' 'defaults' 'write' 'com.googlecode.iterm2' 'PrefsCustomFolder' "$HOME/.cache/iterm2"
+    'command' 'defaults' 'write' 'com.googlecode.iterm2' 'LoadPrefsFromCustomFolder' '-int' '1'
+    'command' 'defaults' 'write' 'com.googlecode.iterm2' 'SUEnableAutomaticChecks' '-int' '0'
 
 
   fi
