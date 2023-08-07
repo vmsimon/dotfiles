@@ -65,10 +65,11 @@ fi
 
 saved_tty_settings="$('command' 'stty' '-g')"
 
-zprofile=''
 zshenv=''
 zshrc=''
 z4h=''
+
+zprofile=''
 env=''
 brewinstall=''
 brewfile=''
@@ -78,7 +79,8 @@ sdkinstall=''
 
 cleanup() {
   'trap' '-' 'INT' 'TERM' 'EXIT'
-  'command' 'rm' '-f' '--' "$zprofile" "$zshenv" "$zshrc" "${zshrc:+$zshrc.bak}" "$z4h" "$env" "${env:+$env.bak}" "$brewinstall" "$brewfile" "$brewcask" "$sdkman" "$sdkinstall"
+  'command' 'rm' '-f' '--' "$zshenv" "$zshrc" "${zshrc:+$zshrc.bak}" "$z4h"
+  'command' 'rm' '-f' '--' "$zprofile" "$env" "${env:+$env.bak}" "$brewinstall" "$brewfile" "$brewcask" "$sdkman" "$sdkinstall" "$iterm2defaults"
   'command' 'stty' "$saved_tty_settings"
 }
 
@@ -102,27 +104,24 @@ read_choice() {
 
 if command -v 'mktemp' >'/dev/null' 2>&1; then
   zprofile="$('command' 'mktemp' "$HOME"/.zprofile.XXXXXXXXXX)"
-  zshenv="$('command' 'mktemp' "$HOME"/.zshenv.XXXXXXXXXX)"
-  zshrc="$('command' 'mktemp' "$HOME"/.zshrc.XXXXXXXXXX)"
-  z4h="$('command' 'mktemp' "$HOME"/.z4h.XXXXXXXXXX)"
   env="$('command' 'mktemp' "$HOME"/.env.zsh.XXXXXXXXXX)"
   brewinstall="$('command' 'mktemp' "$HOME"/brewinstall.sh.XXXXXXXXXX)"
   brewfile="$('command' 'mktemp' "$HOME"/brewfile.XXXXXXXXXX)"
   brewcask="$('command' 'mktemp' "$HOME"/brewcask.XXXXXXXXXX)"
   sdkman="$('command' 'mktemp' "$HOME"/sdkman.io.XXXXXXXXXX)"
   sdkinstall="$('command' 'mktemp' "$HOME"/sdkinstall.XXXXXXXXXX)"
+  iterm2defaults="$('command' 'mktemp' "$HOME"/iterm2defaults.XXXXXXXXXX)"
 else
   zprofile="$HOME"/.zprofile.tmp."$$"
-  zshenv="$HOME"/.zshenv.tmp."$$"
-  zshrc="$HOME"/.zshrc.tmp."$$"
-  z4h="$HOME"/.z4h.tmp."$$"
   env="$HOME"/.env.zsh.tmp."$$"
   brewinstall="$HOME"/brewinstall.sh."$$"
   brewfile="$HOME"/brewfile."$$"
   brewcask="$HOME"/brewcask."$$"
   sdkman="$HOME"/sdkman.io."$$"
   sdkinstall="$HOME"/sdk.install."$$"
+  iterm2defaults="$HOME"/iterm2defaults."$$"
 fi
+
 
 >&2 'printf' 'Greetings, Human!\n'
 >&2 'printf' '\n'
@@ -204,6 +203,25 @@ if '[' "$macossetup" '=' '1' ']'; then
     >&2 'printf' '\n'
     'command' 'brew' 'bundle' '--file' "$brewcask" 2>'/dev/null'
     'command' 'rm' '-f' '--' "$brewcask".lock.json
+  fi
+
+  if ! err="$($fetch "$iterm2defaults" '--' "https://raw.githubusercontent.com/vmsimon/dotfiles/HEAD/com.googlecode.iterm2.plist" 2>&1)"; then
+    >&2 'printf' "%s\n" "$err"
+    >&2 'printf' '\033[33mz4h\033[0m: failed to download \033[31m%s\033[0m\n' "https://raw.githubusercontent.com/vmsimon/dotfiles/HEAD/com.googlecode.iterm2.plist"
+    'command' 'rm' '-f' '--' "$iterm2defaults" 2>'/dev/null'
+    'exit' '1'
+  else
+    >&2 'printf' '\n'
+    >&2 'printf' '\033[33mbrew\033[0m: Start brew bundle --file from \033[1m%s\033[0m\n' "github.com/vmsimon/dotfiles/HEAD/brewcask"
+    >&2 'printf' '\n'
+    'command' 'brew' 'bundle' '--file' "$brewcask" 2>'/dev/null'
+    'command' 'mkdir' '-p' '--' ~/'.cache/iterm2'
+    'command' 'mv' '--' "$iterm2defaults" ~/'.cache/iterm2/com.googlecode.iterm2.plist'
+    'command' 'defaults' 'write' 'com.googlecode.iterm2' 'PrefsCustomFolder' "$HOME/.cache/iterm2/com.googlecode.iterm2.plist"
+    'command' 'defaults' 'write' 'com.googlecode.iterm2' 'LoadPrefsFromCustomFolder' '-bool true'
+    'command' 'defaults' 'write' 'com.googlecode.iterm2' 'SUEnableAutomaticChecks' '-bool true'
+
+
   fi
 
   >&2 'printf' '\n'
@@ -486,6 +504,15 @@ if '[' '-n' "$rcs" ']'; then
   >&2 'printf' '\n'
 fi
 
+if command -v 'mktemp' >'/dev/null' 2>&1; then
+  zshenv="$('command' 'mktemp' "$HOME"/.zshenv.XXXXXXXXXX)"
+  zshrc="$('command' 'mktemp' "$HOME"/.zshrc.XXXXXXXXXX)"
+  z4h="$('command' 'mktemp' "$HOME"/.z4h.XXXXXXXXXX)"
+else
+  zshenv="$HOME"/.zshenv.tmp."$$"
+  zshrc="$HOME"/.zshrc.tmp."$$"
+  z4h="$HOME"/.z4h.tmp."$$"
+fi
 
 url='https://raw.githubusercontent.com/romkatv/zsh4humans/v5'
 
