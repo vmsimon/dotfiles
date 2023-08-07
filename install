@@ -571,13 +571,12 @@ if '[' "$macossetup" '=' '1' ']'; then
     >&2 'printf' '\033[33mz4h\033[0m: failed to download my personal \033[31m%s\033[0m\n' https://raw.githubusercontent.com/vmsimon/dotfiles/HEAD/.fzf-tab.zsh
     'command' 'rm' '-f' '--' "$fzftab"
   else
-    'read_choice'
-    'command' 'cat' "$fzftab >> $env"
-    'command' 'rm' '-f' '--' "$fzftab"
+    'command' 'awk' "BEGIN {while(getline<\"$fzftab\"){print}}" "$env" >"$env.bak"
+    'command' 'mv' '--' "$env.bak" "$env"
   fi
 
   if '[' "$sdkman" '=' '1' ']'; then
-    'command' 'awk' "END {print \"# # disable sort when completing git checkout\"; print \"z4h source $\{HOME\}/.sdkman/bin/sdkman-init.sh\"; print \"\"} 1" "$env" >"$env.bak"
+    'command' 'awk' "END {print \"# Source https://sdkman.io.\"; print \"z4h source $\{HOME\}/.sdkman/bin/sdkman-init.sh\"; print \"\"} 1" "$env" >"$env.bak"
     'command' 'mv' '--' "$env.bak" "$env"
   fi
 fi
