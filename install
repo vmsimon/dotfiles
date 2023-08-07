@@ -109,7 +109,7 @@ if command -v 'mktemp' >'/dev/null' 2>&1; then
   brewfile="$('command' 'mktemp' "$HOME"/brewfile.XXXXXXXXXX)"
   brewcask="$('command' 'mktemp' "$HOME"/brewcask.XXXXXXXXXX)"
   sdkman="$('command' 'mktemp' "$HOME"/sdkman.io.XXXXXXXXXX)"
-  sdkinstall="$('command' 'mktemp' "$HOME"/sdkman.io.XXXXXXXXXX)"
+  sdkinstall="$('command' 'mktemp' "$HOME"/sdk.install.XXXXXXXXXX)"
 else
   zprofile="$HOME"/.zprofile.tmp."$$"
   zshenv="$HOME"/.zshenv.tmp."$$"
