@@ -284,12 +284,12 @@ if '[' "$macossetup" '=' '1' ']'; then
     >&2 'printf' '\n'
     >&2 'printf' 'Installing \033[33mJava SDKs\033[0m...\n'
     >&2 'printf' '\n'
-    if ! err="$($fetch "~/sdk.install" '--' https://raw.githubusercontent.com/vmsimon/dotfiles/HEAD/sdk.install 2>&1)"; then
+    if ! err="$($fetch "${HOME}"/sdk.install '--' "https://raw.githubusercontent.com/vmsimon/dotfiles/HEAD/sdk.install" 2>&1)"; then
       >&2 'printf' "%s\n" "$err"
       >&2 'printf' '\033[33mz4h\033[0m: failed to download \033[31m%s\033[0m\n' https://raw.githubusercontent.com/vmsimon/dotfiles/HEAD/sdk.install
     else
-      'command' 'bash' '--' "~/sdk.install" 2>'/dev/null'
-      'command' 'rm' '-f' '--' "~/sdk.install" 2>'/dev/null'
+      'command' 'bash' '--' "${HOME}"/sdk.install 2>'/dev/null'
+      'command' 'rm' '-f' '--' "${HOME}"/sdk.install 2>'/dev/null'
     fi
   fi
 
