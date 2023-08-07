@@ -568,13 +568,13 @@ if '[' "$macossetup" '=' '1' ']'; then
   'command' 'awk' "BEGIN {print \"# Source https://www.github.com/junegunn/fzf-git.sh.\"; print \"z4h source junegunn/fzf-git.sh/fzf-git.sh\"; print \"\"} 1" "$env" >"$env.bak"
   'command' 'mv' '--' "$env.bak" "$env"
 
-  >&2 'printf' '\033[33mz4h\033[0m: including \033[4m~/.fzf-tab.zsh\033[0m\n in \033[4m~/.env.zsh\033[0m\n'
+  >&2 'printf' '\033[33mz4h\033[0m: including \033[4m~/.fzf-tab.zsh\033[0m in \033[4m~/.env.zsh\033[0m\n'
   if ! err="$($fetch "$fzftab" '--' https://raw.githubusercontent.com/vmsimon/dotfiles/HEAD/.fzf-tab.zsh 2>&1)"; then
     >&2 'printf' "%s\n" "$err"
     >&2 'printf' '\033[33mz4h\033[0m: failed to download my personal \033[31m%s\033[0m\n' https://raw.githubusercontent.com/vmsimon/dotfiles/HEAD/.fzf-tab.zsh
     'command' 'rm' '-f' '--' "$fzftab"
   else
-    'command' 'cat' "$fzftab" '>>' "$env"
+    'command' 'cat' "$fzftab >> $env"
     'command' 'rm' '-f' '--' "$fzftab"
   fi
 
