@@ -107,7 +107,7 @@ function install_homebrew() {
 
 function install_with_brewfile() {
     info "Installing packages within $DOTFILES_REPO/install/brewfile.install ..."
-    if brew bundle --file=${DOTFILES_REPO}/install/brewfile.install; then
+    if brew bundle --file=${DOTFILES_REPO}/install/brewfile; then
         success "Brewfile installation succeeded."
     else
         error "Brewfile installation failed."
@@ -117,7 +117,7 @@ function install_with_brewfile() {
 
 function install_cask_with_brewfile() {
     info "Installing packages within $DOTFILES_REPO/install/brewcask.install ..."
-    if brew bundle --file=${DOTFILES_REPO}/install/brewcask.install; then
+    if brew bundle --file=${DOTFILES_REPO}/install/brewcask; then
         success "Brewfile installation succeeded."
         step ""
         error "Apps are installed in /Applications,"
@@ -146,8 +146,8 @@ function brew_install() {
 function brew_cleanup() {
     info "brew cleanup"
     # Remove lock files installed from brew bundle
-    [[ -f ${DOTFILES_REPO}/install/brewfile.install.lock.json ]] && rm ${DOTFILES_REPO}/install/brewfile.install.lock.json
-    [[ -f ${DOTFILES_REPO}/install/brewcask.install.lock.json ]] && rm ${DOTFILES_REPO}/install/brewcask.install.lock.json
+    [[ -f ${DOTFILES_REPO}/install/brewfile.lock.json ]] && rm ${DOTFILES_REPO}/install/brewfile.lock.json
+    [[ -f ${DOTFILES_REPO}/install/brewcask.lock.json ]] && rm ${DOTFILES_REPO}/install/brewcask.lock.json
     if brew cleanup; then
         success "Cleanup succeeded."
     else

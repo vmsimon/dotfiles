@@ -1,0 +1,8 @@
+#!/bin/bash
+
+export SDKMAN_DIR="~/.sdkman"
+[[ -s "${SDKMAN_DIR}/bin/sdkman-init.sh" ]] && source "${SDKMAN_DIR}/bin/sdkman-init.sh"
+
+sdk install java 8.0.382-tem
+sdk install java 11.0.20-tem
+sdk install java 17.0.8-tem

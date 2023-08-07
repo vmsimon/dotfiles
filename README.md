@@ -5,8 +5,14 @@ Originally Inspired by [My macOS Empire](https://medium.com/@Sadhosn/build-a-mac
 
 * On a fresh macOS:
 	* Setup for a software development environment entirely with a one-liner 🔥
-    ```
-    curl --silent https://raw.githubusercontent.com/vmsimon/dotfiles/master/install.sh | bash
+      Run this command in bash, zsh, or sh:
+
+    ```shell
+    if command -v curl >/dev/null 2>&1; then
+      sh -c "$(curl -fsSL https://raw.githubusercontent.com/vmsimon/dotfiles/HEAD/install)"
+    else
+      sh -c "$(wget -O- https://raw.githubusercontent.com/vmsimon/dotfiles/HEAD/install)"
+    fi
     ```
 
 * What does the script do_
