@@ -227,11 +227,11 @@ if '[' "$macossetup" '=' '1' ']'; then
     'read_choice'
     case "$choice" in
       'y'|'Y')
-        sdkman='1'
+        sdkmaninstall='1'
         'break'
       ;;
       'n'|'N')
-        sdkman='0'
+        sdkmaninstallan='0'
         'break'
       ;;
       "$lf")
@@ -242,7 +242,7 @@ if '[' "$macossetup" '=' '1' ']'; then
     esac
   done
 
-  if '[' "$sdkman" '=' '1' ']'; then
+  if '[' "$sdkmaninstall" '=' '1' ']'; then
 
     >&2 'printf' '\n'
     >&2 'printf' 'Installing \033[33mSDKMan.io\033[0m...\n'
@@ -257,7 +257,6 @@ if '[' "$macossetup" '=' '1' ']'; then
       >&2 'printf' '\033[33mbrew\033[0m: Start SDKMan install from \033[1m%s\033[0m ...\n' "get.sdkman.io/"
       >&2 'printf' '\n'
       'command' 'bash' '--' "$sdkman" 2>'/dev/null'
-      'command' 'rm' '-f' '--' "$sdkman"
 
       >&2 'printf' '\n'
       >&2 'printf' 'Do you want to install \033[32m Java Versions 8.0.382-tem, 11.0.20-tem, 17.0.8-tem with SDKMan.io \033[0m?\n'
@@ -434,7 +433,7 @@ for f in ~/'.zshenv' ~/'.zshenv.zwc'     \
          ~/'.zshrc' ~/'.zshrc.zwc'       \
          ~/'.zlogin' ~/'.zlogin.zwc'     \
          ~/'.zlogout' ~/'.zlogout.zwc'   \
-         ~/'.env.zsh'                    \
+         ~/'.env.zsh' ~/'.env.zwc'       \
          ; do
   if '[' '-e' "$f" ']'; then
     rcs="$rcs ${f##*/}"
@@ -568,7 +567,7 @@ if '[' "$macossetup" '=' '1' ']'; then
     >&2 'printf' '\033[33mz4h\033[0m: failed to download my personal \033[31m%s\033[0m\n' https://raw.githubusercontent.com/vmsimon/dotfiles/HEAD/.fzf-tab.zsh
     'command' 'rm' '-f' '--' "$fzftab"
   else
-    'command' 'awk' "-vf1=\"$fzftab\"" "BEGIN {print \"# Include my fzf-tab setting\"; print f1; print \"\"} 1" "$env" >"$env.bak"
+    'command' 'awk' "END {print \"# Source .fzf-tab.zsh.\"; print \"z4h source $\{HOME\}/.fzf-git.sh\"; print \"\"} 1" "$env" >"$env.bak"
     'command' 'mv' '--' "$env.bak" "$env"
   fi
 
@@ -577,7 +576,7 @@ if '[' "$macossetup" '=' '1' ']'; then
   'command' 'awk' "BEGIN {print \"# Source https://www.github.com/junegunn/fzf-git.sh.\"; print \"z4h source junegunn/fzf-git.sh/fzf-git.sh\"; print \"\"} 1" "$env" >"$env.bak"
   'command' 'mv' '--' "$env.bak" "$env"
 
-  if '[' "$sdkman" '=' '1' ']'; then
+  if '[' "$sdkmaninstall" '=' '1' ']'; then
     'command' 'awk' "END {print \"# Source https://sdkman.io.\"; print \"z4h source $\{HOME\}/.sdkman/bin/sdkman-init.sh\"; print \"\"} 1" "$env" >"$env.bak"
     'command' 'mv' '--' "$env.bak" "$env"
   fi
@@ -604,6 +603,7 @@ fi
 'command' 'mv' '--' "$zshrc" ~/'.zshrc'
 'command' 'mv' '--' "$z4h" "$Z4H"/z4h.zsh
 'command' 'mv' '--' "$env" ~/'.env.zsh'
+'command' 'mv' '--' "$fzftab" ~/'.fzf-tab.zsh'
 
 'printf' '%s\n' "$backup_dir" >"$Z4H"/welcome
 
