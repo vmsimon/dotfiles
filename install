@@ -75,11 +75,10 @@ brewfile=''
 brewcask=''
 sdkman=''
 sdkinstall=''
-p10k=''
 
 cleanup() {
   'trap' '-' 'INT' 'TERM' 'EXIT'
-  'command' 'rm' '-f' '--' "$zprofile" "$zshenv" "$zshrc" "${zshrc:+$zshrc.bak}" "$z4h" "$env" "${env:+$env.bak}" "$brewinstall" "$brewfile" "$brewcask" "$sdkman" "$sdkinstall" "$p10k"
+  'command' 'rm' '-f' '--' "$zprofile" "$zshenv" "$zshrc" "${zshrc:+$zshrc.bak}" "$z4h" "$env" "${env:+$env.bak}" "$brewinstall" "$brewfile" "$brewcask" "$sdkman" "$sdkinstall"
   'command' 'stty' "$saved_tty_settings"
 }
 
@@ -112,7 +111,6 @@ if command -v 'mktemp' >'/dev/null' 2>&1; then
   brewcask="$('command' 'mktemp' "$HOME"/brewcask.XXXXXXXXXX)"
   sdkman="$('command' 'mktemp' "$HOME"/sdkman.io.XXXXXXXXXX)"
   sdkinstall="$('command' 'mktemp' "$HOME"/sdkinstall.XXXXXXXXXX)"
-  p10k="$('command' 'mktemp' "$HOME"/.p10k.zsh.XXXXXXXXXX)"
 else
   zprofile="$HOME"/.zprofile.tmp."$$"
   zshenv="$HOME"/.zshenv.tmp."$$"
@@ -124,7 +122,6 @@ else
   brewcask="$HOME"/brewcask."$$"
   sdkman="$HOME"/sdkman.io."$$"
   sdkinstall="$HOME"/sdk.install."$$"
-  p10k="$HOME"/.p10k.zsh."$$"
 fi
 
 >&2 'printf' 'Greetings, Human!\n'
@@ -536,6 +533,7 @@ if '[' '-r' '/proc/version' ']' && 'command' 'grep' '-q' '[Mm]icrosoft' '/proc/v
 fi
 
 if '[' "$macossetup" '=' '1' ']'; then
+  >&2 'printf' '\033[33mz4h\033[0m: generating \033[4m~/.zprofile\033[0m\n'
   case "$platform" in
     'darwin arm64')
       'command' 'awk' 'BEGIN {print "eval \"\$(/opt/homebrew/bin/brew shellenv)\""; print ""}' "$zprofile" >"$zprofile.bak"
@@ -548,15 +546,7 @@ if '[' "$macossetup" '=' '1' ']'; then
     *);;
   esac
 
-  >&2 'printf' '\033[33mz4h\033[0m: generating \033[4m~/.p10k.zsh\033[0m\n'
-  if ! err="$($fetch "$p10k" '--' https://raw.githubusercontent.com/vmsimon/dotfiles/HEAD/.p10k.zsh 2>&1)"; then
-    >&2 'printf' "%s\n" "$err"
-    >&2 'printf' '\033[33mz4h\033[0m: failed to download my personal \033[31m%s\033[0m\n' https://raw.githubusercontent.com/vmsimon/dotfiles/HEAD/.p10k.zsh
-    'command' 'rm' '-f' '--' "$p10k"
-  else
-    'command' 'mv' '--' "$p10k" ~/'.p10k.zsh'
-  fi
-
+  >&2 'printf' '\033[33mz4h\033[0m: generating \033[4m~/.env.zsh\033[0m\n'
   'command' 'awk' "/Install or update core components/ {print \"# Clone https://www.github.com/junegunn/fzf-git.sh.\"; print \"z4h install junegunn/fzf-git.sh || return\"; print \"\"} 1" "$zshrc" >"$zshrc.bak"
   'command' 'mv' '--' "$zshrc.bak" "$zshrc"
   'command' 'awk' "BEGIN {print \"# Source https://www.github.com/junegunn/fzf-git.sh.\"; print \"z4h source junegunn/fzf-git.sh/fzf-git.sh\"; print \"\"} 1" "$env" >"$env.bak"
