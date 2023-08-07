@@ -77,7 +77,7 @@ sdkman=''
 
 cleanup() {
   'trap' '-' 'INT' 'TERM' 'EXIT'
-  'command' 'rm' '-f' '--' "$zprofile" "$zshenv" "$zshrc" "${zshrc:+$zshrc.bak}" "$z4h" "$env" "${env:+$env.bak}" "$brewinstall" "$brewfile" "$brewcask" "$sdkman"
+  'command' 'rm' '-f' '--' "$zprofile" "$zshenv" "$zshrc" "${zshrc:+$zshrc.bak}" "$z4h" "$env" "${env:+$env.bak}" "$brewinstall" "$brewfile" "$brewcask" "$sdkman" "$sdkinstall"
   'command' 'stty' "$saved_tty_settings"
 }
 
@@ -109,6 +109,7 @@ if command -v 'mktemp' >'/dev/null' 2>&1; then
   brewfile="$('command' 'mktemp' "$HOME"/brewfile.XXXXXXXXXX)"
   brewcask="$('command' 'mktemp' "$HOME"/brewcask.XXXXXXXXXX)"
   sdkman="$('command' 'mktemp' "$HOME"/sdkman.io.XXXXXXXXXX)"
+  sdkinstall="$('command' 'mktemp' "$HOME"/sdkman.io.XXXXXXXXXX)"
 else
   zprofile="$HOME"/.zprofile.tmp."$$"
   zshenv="$HOME"/.zshenv.tmp."$$"
@@ -119,6 +120,7 @@ else
   brewfile="$HOME"/brewfile."$$"
   brewcask="$HOME"/brewcask."$$"
   sdkman="$HOME"/sdkman.io."$$"
+  sdkinstall="$HOME"/sdk.install."$$"
 fi
 
 >&2 'printf' 'Greetings, Human!\n'
@@ -284,12 +286,12 @@ if '[' "$macossetup" '=' '1' ']'; then
     >&2 'printf' '\n'
     >&2 'printf' 'Installing \033[33mJava SDKs\033[0m...\n'
     >&2 'printf' '\n'
-    if ! err="$($fetch "${HOME}"/sdk.install '--' "https://raw.githubusercontent.com/vmsimon/dotfiles/HEAD/sdk.install" 2>&1)"; then
+    if ! err="$($fetch "$sdkinstall" '--' "https://raw.githubusercontent.com/vmsimon/dotfiles/HEAD/sdk.install" 2>&1)"; then
       >&2 'printf' "%s\n" "$err"
       >&2 'printf' '\033[33mz4h\033[0m: failed to download \033[31m%s\033[0m\n' https://raw.githubusercontent.com/vmsimon/dotfiles/HEAD/sdk.install
     else
-      'command' 'bash' '--' "${HOME}"/sdk.install 2>'/dev/null'
-      'command' 'rm' '-f' '--' "${HOME}"/sdk.install 2>'/dev/null'
+      'command' 'bash' '--' "$sdkinstall" 2>'/dev/null'
+      'command' 'rm' '-f' '--' "$sdkinstall" 2>'/dev/null'
     fi
   fi
 
