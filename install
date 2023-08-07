@@ -578,11 +578,8 @@ if '[' "$macossetup" '=' '1' ']'; then
     'command' 'rm' '-f' '--' "$fzftab"
   fi
 
-  'command' 'awk' "END {print \"# # disable sort when completing git checkout\"; print \"z4h source $\{HOME\}/.sdkman/bin/sdkman-init.sh\"; print \"\"} 1" "$env" >"$env.bak"
-  'command' 'mv' '--' "$env.bak" "$env"
-
   if '[' "$sdkman" '=' '1' ']'; then
-    'command' 'awk' "END {print \"# Source https://sdkman.io.\"; print \"zstyle ':completion:*:git-checkout:*' sort false\"; print \"\"} 1" "$env" >"$env.bak"
+    'command' 'awk' "END {print \"# # disable sort when completing git checkout\"; print \"z4h source $\{HOME\}/.sdkman/bin/sdkman-init.sh\"; print \"\"} 1" "$env" >"$env.bak"
     'command' 'mv' '--' "$env.bak" "$env"
   fi
 fi
