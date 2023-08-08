@@ -212,9 +212,8 @@ if '[' "$macossetup" '=' '1' ']'; then
     'exit' '1'
   else
     >&2 'printf' '\n'
-    >&2 'printf' '\033[33mbrew\033[0m: Start brew bundle --file from \033[1m%s\033[0m\n' "github.com/vmsimon/dotfiles/HEAD/brewcask"
+    >&2 'printf' '\033[33mbrew\033[0m: Setup iterm2 preferences \n'
     >&2 'printf' '\n'
-    'command' 'brew' 'bundle' '--file' "$brewcask" 2>'/dev/null'
     'command' 'mkdir' '-p' '--' ~/'.cache/iterm2'
     'command' 'mv' '--' "$iterm2defaults" ~/'.cache/iterm2/com.googlecode.iterm2.plist'
     'command' 'defaults' 'write' 'com.googlecode.iterm2' 'PrefsCustomFolder' "$HOME/.cache/iterm2"
