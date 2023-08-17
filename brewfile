@@ -9,6 +9,7 @@ tap "hashicorp/tap"
 tap "homebrew/services"
 tap "peak/tap"
 tap "sdkman/tap"
+tap "vmsimon/tap"
 
 ##################### brew #####################
 # Plugin manager for zsh, inspired by oh-my-zsh and vundle
@@ -105,3 +106,5 @@ brew "wget"
 #brew "sdkman/tap/sdkman-cli"
 # Parallel S3 and local filesystem execution tool
 brew "peak/tap/s5cmd"
+# fi-ts/cloudctl
+brew "vmsimon/tap/cloudctl"
