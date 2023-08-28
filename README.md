@@ -1,7 +1,8 @@
 # [My macOS Setup]
 
 Originally Inspired by [My macOS Empire](https://medium.com/@Sadhosn/build-a-macos-empire-a0c83879ac24) 👑
-[![my macOS empire](https://i.imgur.com/3ep7B1T.png)](https://vimeo.com/sajjadhosn/my-macos-empire "Watch a sample executation of my macOS bootstrapping script")
+
+Extended and now based on [Roman Perepelitsa - ZSH for Humans](https://github.com/romkatv/zsh4humans)
 
 * On a fresh macOS:
 	* Setup for a software development environment entirely with a one-liner 🔥
