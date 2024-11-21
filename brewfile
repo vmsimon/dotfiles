@@ -27,15 +27,15 @@ brew "curl"
 # Tool for exploring each layer in a docker image
 brew "dive"
 # Pack, ship and run any application as a lightweight container
-brew "docker"
+#brew "docker"
 # Isolated development environments using Docker
-brew "docker-compose"
+#brew "docker-compose"
 # Platform keystore credential helper for Docker
-brew "docker-credential-helper"
+#brew "docker-credential-helper"
 # Minify and secure Docker images
-brew "docker-slim"
-# Modern replacement for 'ls'
-brew "exa"
+#brew "docker-slim"
+# Clone of ls with colorful output, file type icons, and more
+brew "lsd"
 # Perl lib for reading and writing EXIF metadata
 brew "exiftool"
 # Collection of GNU find, xargs, and locate
@@ -84,8 +84,6 @@ brew "pwgen"
 brew "sevenzip"
 # Editor of encrypted files
 brew "sops"
-# SSL scanner
-brew "sslyze"
 # Crypto and x509 Swiss-Army-Knife
 brew "step"
 # Tail multiple Kubernetes pods & their containers
