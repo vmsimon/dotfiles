@@ -25,8 +25,6 @@ cask "jetbrains-toolbox"
 cask "lens"
 # Visual tool to design, develop and administer MySQL servers
 cask "mysqlworkbench"
-# Porting tool, to make Windows programs/games into native apps
-cask "porting-kit"
 # Collaboration platform for API development
 cask "postman"
 # Move and resize windows using keyboard shortcuts or snap areas
@@ -39,3 +37,15 @@ cask "textmate"
 cask "wireshark"
 # X Certificate and Key management
 cask "xca"
+# KeyClu
+cask "keyclu"
+# Visual Studio Code
+cask visual-studio-code
+# Calibre
+cask "calibre"
+# Kubecontext
+cask "kubecontext"
+# diffmerge
+cask "diffmerge"
+# Slack
+cask "slack"
