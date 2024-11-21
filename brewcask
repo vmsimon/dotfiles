@@ -40,7 +40,7 @@ cask "xca"
 # KeyClu
 cask "keyclu"
 # Visual Studio Code
-cask visual-studio-code
+cask "visual-studio-code"
 # Calibre
 cask "calibre"
 # Kubecontext
