@@ -1,10 +1,5 @@
 # See: https://github.com/Homebrew/homebrew-bundle
 
-##################### taps #####################
-# needed tap's
-tap "homebrew/cask-fonts"
-tap "homebrew/cask-versions"
-
 ##################### cask #####################
 # Firefox WebBrowser
 cask "firefox"
